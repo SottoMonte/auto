@@ -16,6 +16,10 @@ const state = {
 
 const elements = {
   brandFilter: document.querySelector("#brand-filter"),
+  toplineContacts: document.querySelector("#topline-contacts"),
+  toplineEmail: document.querySelector("#topline-email"),
+  toplineWhatsapp: document.querySelector("#topline-whatsapp"),
+  toplineWhatsappNumber: document.querySelector("#topline-whatsapp-number"),
   contactEmail: document.querySelector("#contact-email"),
   contactPhone: document.querySelector("#contact-phone"),
   contactPrimary: document.querySelector("#contact-primary"),
@@ -137,6 +141,7 @@ function updateSiteDetails() {
   const email = validEmail(state.site.email);
   const phone = String(state.site.phone || "").trim();
   const whatsapp = whatsappUrl();
+  const whatsappNumber = String(state.site.whatsapp ?? "").replace(/\D/g, "");
 
   document.querySelectorAll("[data-brand]").forEach((element) => {
     element.textContent = brand;
@@ -144,6 +149,22 @@ function updateSiteDetails() {
   document.querySelectorAll("[data-city]").forEach((element) => {
     element.textContent = city;
   });
+
+  elements.toplineEmail.hidden = !email;
+  if (email) {
+    elements.toplineEmail.href = `mailto:${email}`;
+    elements.toplineEmail.textContent = email;
+  }
+  elements.toplineWhatsapp.hidden = !whatsapp;
+  if (whatsapp) {
+    elements.toplineWhatsapp.href = whatsapp;
+    elements.toplineWhatsappNumber.textContent = `+${whatsappNumber}`;
+    elements.toplineWhatsapp.setAttribute("aria-label", `WhatsApp ${whatsappNumber}`);
+  } else {
+    elements.toplineWhatsapp.removeAttribute("href");
+    elements.toplineWhatsappNumber.textContent = "";
+  }
+  elements.toplineContacts.hidden = !email && !whatsapp;
 
   document.title = `${brand} — Noleggio e vendita auto`;
   elements.heroTagline.textContent = state.site.tagline || "Vendita chiara. Noleggio flessibile.";

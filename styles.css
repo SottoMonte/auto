@@ -99,6 +99,8 @@ select:focus-visible {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 7px 22px;
   max-width: 1440px;
   min-height: 34px;
   padding: 0 42px;
@@ -109,10 +111,45 @@ select:focus-visible {
   margin: 0;
 }
 
-.topline__inner p:first-child {
+.topline__location {
   display: flex;
   align-items: center;
   gap: 9px;
+}
+
+.topline__right,
+.topline__contacts {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
+
+.topline__right {
+  justify-content: flex-end;
+  margin-left: auto;
+}
+
+.topline__contacts a {
+  color: inherit;
+  overflow-wrap: anywhere;
+  text-decoration: none;
+}
+
+.topline__contacts a:hover {
+  color: var(--lime);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.topline__whatsapp {
+  display: inline-flex;
+  gap: 5px;
+}
+
+.topline__contacts[hidden],
+.topline__contacts a[hidden] {
+  display: none;
 }
 
 .topline__dash {
@@ -1184,8 +1221,21 @@ select:focus-visible {
     padding-left: 22px;
   }
 
-  .topline__inner p:last-child {
-    display: none;
+  .topline__inner {
+    align-items: center;
+    gap: 7px 22px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+
+  .topline__right {
+    justify-content: flex-end;
+    margin-left: auto;
+  }
+
+  .topline__contacts {
+    column-gap: 12px;
+    font-size: 10px;
   }
 
   .site-header__inner {
@@ -1422,6 +1472,12 @@ select:focus-visible {
 
   .vehicle-dialog__content {
     padding: 35px 24px 25px;
+  }
+}
+
+@media (max-width: 480px) {
+  .topline__slogan {
+    display: none;
   }
 }
 

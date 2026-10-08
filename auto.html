@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f2f5ee" />
+    <meta name="description" content="Scopri caratteristiche, prezzo e disponibilità dell'auto selezionata." />
+    <title>Dettagli auto — STRADA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="vehicle-pages.js" defer></script>
+  </head>
+  <body data-page="vehicle">
+    <a class="skip-link" href="#main">Salta al contenuto</a>
+
+    <div class="topline">
+      <div class="topline__inner">
+        <p class="topline__location"><span class="topline__dash" aria-hidden="true"></span><span data-city>La tua città</span></p>
+        <div class="topline__right">
+          <p class="topline__slogan">La strada giusta, senza giri di parole.</p>
+          <div class="topline__contacts" id="topline-contacts" hidden>
+            <a id="topline-email" href="mailto:info@example.com" hidden></a>
+            <a class="topline__whatsapp" id="topline-whatsapp" href="#contatti" target="_blank" rel="noopener noreferrer" hidden>
+              <span>WhatsApp</span><span id="topline-whatsapp-number"></span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="brand" href="index.html#inizio" aria-label="STRADA, pagina iniziale"><span data-brand>STRADA</span><span class="brand__dot" aria-hidden="true">.</span></a>
+        <button class="menu-toggle" type="button" aria-label="Apri il menu" aria-controls="vehicle-navigation" aria-expanded="false">
+          <span></span><span></span>
+        </button>
+        <nav class="primary-nav" id="vehicle-navigation" aria-label="Navigazione principale">
+          <a href="index.html#inizio">Home</a>
+          <a href="parco-auto.html">Parco auto</a>
+          <a class="primary-nav__contact" id="header-contact" href="#contatti">Contattaci <span aria-hidden="true">↗</span></a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="vehicle-page">
+      <nav class="detail-breadcrumb" aria-label="Percorso">
+        <a href="parco-auto.html">Parco auto</a><span aria-hidden="true">/</span><span id="detail-breadcrumb-title">Dettagli auto</span>
+      </nav>
+      <div class="vehicle-detail-layout" id="vehicle-detail" hidden>
+        <section class="detail-gallery" aria-label="Foto dell'auto">
+          <div class="detail-gallery__stage">
+            <img id="detail-image" src="" alt="" fetchpriority="high" />
+            <span class="vehicle-card__badge" id="detail-mode"></span>
+            <span class="detail-gallery__counter" id="detail-image-counter" aria-live="polite"></span>
+          </div>
+          <div class="detail-gallery__thumbs" id="detail-thumbnails" role="group" aria-label="Scegli una foto" hidden></div>
+        </section>
+        <section class="detail-summary" aria-labelledby="detail-title">
+          <p class="eyebrow"><span class="eyebrow__index">STRADA</span> SCHEDA AUTO</p>
+          <div class="detail-summary__heading">
+            <div>
+              <p class="detail-brand" id="detail-brand"></p>
+              <h1 id="detail-title"></h1>
+            </div>
+            <p class="vehicle-card__price detail-price"><strong id="detail-price"></strong><span id="detail-price-unit"></span></p>
+          </div>
+          <p class="detail-availability" id="detail-availability"></p>
+          <p class="detail-description" id="detail-description"></p>
+          <dl class="detail-specs" id="detail-specs"></dl>
+          <div class="detail-contacts" aria-label="Contatta per questa auto">
+            <a class="button button--dark" id="detail-email" href="#contatti" hidden>Contattaci via email <span aria-hidden="true">↗</span></a>
+            <a class="button button--whatsapp" id="detail-whatsapp" href="#contatti" target="_blank" rel="noopener noreferrer" hidden>Contattaci su WhatsApp <span aria-hidden="true">↗</span></a>
+          </div>
+          <a class="text-link detail-back-link" href="parco-auto.html">Torna al parco auto <span aria-hidden="true">↗</span></a>
+        </section>
+      </div>
+      <section class="vehicle-not-found" id="vehicle-not-found" hidden>
+        <p class="eyebrow"><span class="eyebrow__index">STRADA</span> PARCO AUTO</p>
+        <h1>Questa auto non è disponibile.</h1>
+        <a class="button button--dark" href="parco-auto.html">Vedi il parco auto <span aria-hidden="true">↗</span></a>
+      </section>
+    </main>
+
+    <footer class="site-footer" id="contatti">
+      <div class="site-footer__main">
+        <a class="brand brand--footer" href="index.html#inizio" aria-label="Torna all'inizio"><span data-brand>STRADA</span><span class="brand__dot" aria-hidden="true">.</span></a>
+        <p>Noleggio e vendita auto.<br /><span data-city>La tua città</span></p>
+        <div class="site-footer__contacts">
+          <a id="contact-email" href="mailto:info@example.com">info@example.com</a>
+          <a id="contact-phone" href="tel:" hidden></a>
+        </div>
+      </div>
+      <section class="site-footer__legal" id="legal-details" aria-labelledby="legal-details-title" hidden>
+        <h2 class="site-footer__legal-title" id="legal-details-title">Dati dell'impresa</h2>
+        <dl class="site-footer__legal-list" id="legal-details-list"></dl>
+      </section>
+      <div class="site-footer__bottom">
+        <span>© <span id="current-year"></span> <span data-brand>STRADA</span></span>
+        <a href="#main">Torna su <span aria-hidden="true">↑</span></a>
+      </div>
+    </footer>
+  </body>
+</html>

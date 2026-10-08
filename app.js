@@ -12,6 +12,9 @@ const state = {
   heroIndex: 0,
   heroTimer: null,
   heroPaused: false,
+  dialogVehicle: null,
+  dialogImages: [],
+  dialogImageIndex: 0,
 };
 
 const elements = {
@@ -28,11 +31,14 @@ const elements = {
   dialog: document.querySelector("#vehicle-dialog"),
   dialogDescription: document.querySelector("#dialog-description"),
   dialogEmailContact: document.querySelector("#dialog-email-contact"),
+  dialogFullDetails: document.querySelector("#dialog-full-details"),
   dialogImage: document.querySelector("#dialog-image"),
+  dialogImageCounter: document.querySelector("#dialog-image-counter"),
   dialogMode: document.querySelector("#dialog-mode"),
   dialogPrice: document.querySelector("#dialog-price"),
   dialogSpecs: document.querySelector("#dialog-specs"),
   dialogTitle: document.querySelector("#dialog-title"),
+  dialogThumbnails: document.querySelector("#dialog-thumbnails"),
   dialogWhatsappContact: document.querySelector("#dialog-whatsapp-contact"),
   emptyState: document.querySelector("#empty-state"),
   heroAutoplay: document.querySelector("#hero-autoplay"),
@@ -92,6 +98,11 @@ function imageUrl(value) {
   }
 
   return fallbackImage;
+}
+
+function vehicleImages(vehicle) {
+  return [...new Set([vehicle.image, ...(Array.isArray(vehicle.images) ? vehicle.images : [])]
+    .filter((image) => typeof image === "string" && image.trim()))];
 }
 
 function formatNumber(value) {
@@ -393,10 +404,27 @@ function openVehicleDetails(vehicleId) {
 
   const isRental = vehicle.mode === "noleggio";
   const title = String(vehicle.title || `${vehicle.brand || "Auto"} ${vehicle.model || ""}`).trim();
+  state.dialogVehicle = vehicle;
+  state.dialogImages = vehicleImages(vehicle);
+  state.dialogImageIndex = 0;
   elements.dialogTitle.textContent = title;
   elements.dialogMode.textContent = isRental ? "Noleggio" : "Vendita";
-  elements.dialogImage.src = imageUrl(vehicle.image);
-  elements.dialogImage.alt = title;
+  elements.dialogFullDetails.href = `auto.html?id=${encodeURIComponent(vehicle.id)}`;
+  elements.dialogThumbnails.replaceChildren(...state.dialogImages.map((image, index) => {
+    const button = document.createElement("button");
+    const thumbnail = document.createElement("img");
+    button.type = "button";
+    button.className = "vehicle-dialog__thumb";
+    button.setAttribute("aria-label", `Mostra foto ${index + 1}`);
+    button.setAttribute("aria-pressed", String(index === 0));
+    button.dataset.dialogImageIndex = String(index);
+    thumbnail.src = imageUrl(image);
+    thumbnail.alt = "";
+    button.append(thumbnail);
+    return button;
+  }));
+  elements.dialogThumbnails.hidden = state.dialogImages.length < 2;
+  setDialogImage(0);
   elements.dialogDescription.textContent = vehicle.description || "Contattaci per verificare disponibilità e condizioni.";
   const modeLabel = isRental ? "noleggio" : "vendita";
   const yearLabel = vehicle.year ? `, anno ${vehicle.year}` : "";
@@ -432,6 +460,23 @@ function openVehicleDetails(vehicleId) {
   ].filter(Boolean);
   elements.dialogSpecs.replaceChildren(...specs);
   elements.dialog.showModal();
+}
+
+function setDialogImage(index) {
+  const imageCount = state.dialogImages.length;
+  if (!imageCount || !state.dialogVehicle) {
+    return;
+  }
+
+  state.dialogImageIndex = ((index % imageCount) + imageCount) % imageCount;
+  elements.dialogImage.src = imageUrl(state.dialogImages[state.dialogImageIndex]);
+  elements.dialogImage.alt = `${state.dialogVehicle.title || "Auto"}, foto ${state.dialogImageIndex + 1}`;
+  elements.dialogImageCounter.textContent = imageCount > 1
+    ? `${state.dialogImageIndex + 1} / ${imageCount}`
+    : "";
+  elements.dialogThumbnails.querySelectorAll("[data-dialog-image-index]").forEach((button) => {
+    button.setAttribute("aria-pressed", String(Number(button.dataset.dialogImageIndex) === state.dialogImageIndex));
+  });
 }
 
 function bindEvents() {
@@ -477,6 +522,12 @@ function bindEvents() {
     if (vehicle) {
       setHeroAutoplay(true);
       openVehicleDetails(vehicle.id);
+    }
+  });
+  elements.dialogThumbnails.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-dialog-image-index]");
+    if (button) {
+      setDialogImage(Number(button.dataset.dialogImageIndex));
     }
   });
   elements.heroMedia.addEventListener("focusin", (event) => {

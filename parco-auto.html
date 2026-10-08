@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f2f5ee" />
+    <meta name="description" content="Consulta il parco auto STRADA: vetture in vendita e a noleggio, con prezzi e caratteristiche." />
+    <title>Parco auto — STRADA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="vehicle-pages.js" defer></script>
+  </head>
+  <body data-page="catalog">
+    <a class="skip-link" href="#main">Salta al contenuto</a>
+
+    <div class="topline">
+      <div class="topline__inner">
+        <p class="topline__location"><span class="topline__dash" aria-hidden="true"></span><span data-city>La tua città</span></p>
+        <div class="topline__right">
+          <p class="topline__slogan">La strada giusta, senza giri di parole.</p>
+          <div class="topline__contacts" id="topline-contacts" hidden>
+            <a id="topline-email" href="mailto:info@example.com" hidden></a>
+            <a class="topline__whatsapp" id="topline-whatsapp" href="#contatti" target="_blank" rel="noopener noreferrer" hidden>
+              <span>WhatsApp</span><span id="topline-whatsapp-number"></span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="brand" href="index.html#inizio" aria-label="STRADA, pagina iniziale"><span data-brand>STRADA</span><span class="brand__dot" aria-hidden="true">.</span></a>
+        <button class="menu-toggle" type="button" aria-label="Apri il menu" aria-controls="catalog-navigation" aria-expanded="false">
+          <span></span><span></span>
+        </button>
+        <nav class="primary-nav" id="catalog-navigation" aria-label="Navigazione principale">
+          <a href="index.html#inizio">Home</a>
+          <a href="parco-auto.html" aria-current="page">Parco auto</a>
+          <a class="primary-nav__contact" id="header-contact" href="#contatti">Contattaci <span aria-hidden="true">↗</span></a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="catalog-page">
+      <div class="catalog-heading">
+        <div>
+          <p class="eyebrow"><span class="eyebrow__index">01</span> STRADA / PARCO AUTO</p>
+          <h1>Trova la tua prossima auto.</h1>
+          <p>Consulta le auto disponibili in vendita e a noleggio.</p>
+        </div>
+        <a class="text-link" href="index.html#inizio">Torna alla home <span aria-hidden="true">↗</span></a>
+      </div>
+
+      <div class="catalog-layout">
+        <aside class="catalog-filters" aria-labelledby="catalog-filter-title">
+          <div class="catalog-filters__heading">
+            <h2 id="catalog-filter-title">Filtra per</h2>
+            <button class="catalog-reset" id="catalog-reset" type="button">Cancella filtri</button>
+          </div>
+          <fieldset class="catalog-filter-group">
+            <legend>Formula</legend>
+            <div class="mode-tabs" role="group" aria-label="Filtra per formula">
+              <button type="button" data-catalog-mode="tutte" aria-pressed="true">Tutte</button>
+              <button type="button" data-catalog-mode="vendita" aria-pressed="false">Vendita</button>
+              <button type="button" data-catalog-mode="noleggio" aria-pressed="false">Noleggio</button>
+            </div>
+          </fieldset>
+          <label class="catalog-filter-group catalog-field" for="catalog-search">
+            <span>Ricerca libera</span>
+            <input id="catalog-search" type="search" placeholder="Marca o modello" autocomplete="off" />
+          </label>
+          <label class="catalog-filter-group catalog-field" for="catalog-model">
+            <span>Modello</span>
+            <select id="catalog-model"><option value="tutte">Tutti i modelli</option></select>
+          </label>
+          <label class="catalog-filter-group catalog-field" for="catalog-fuel">
+            <span>Alimentazione</span>
+            <select id="catalog-fuel"><option value="tutte">Tutte</option></select>
+          </label>
+          <label class="catalog-filter-group catalog-field" for="catalog-transmission">
+            <span>Cambio</span>
+            <select id="catalog-transmission"><option value="tutte">Tutti</option></select>
+          </label>
+          <label class="catalog-filter-group catalog-field" for="catalog-price-max">
+            <span>Importo massimo (€)</span>
+            <input id="catalog-price-max" type="number" min="0" step="100" inputmode="numeric" placeholder="Nessun limite" />
+            <small id="catalog-price-unit">Prezzo totale o tariffa giornaliera</small>
+          </label>
+        </aside>
+
+        <section class="catalog-results" aria-labelledby="catalog-results-title">
+          <h2 class="visually-hidden" id="catalog-results-title">Auto disponibili</h2>
+          <div class="catalog-brands" id="catalog-brands" role="group" aria-label="Filtra per marca"></div>
+          <div class="catalog-toolbar">
+            <p class="inventory-count" id="catalog-count" role="status" aria-live="polite">Carico il parco auto…</p>
+            <label class="catalog-sort" for="catalog-sort">
+              Ordina per
+              <select id="catalog-sort">
+                <option value="evidenza">In evidenza</option>
+                <option value="anno-recente">Anno più recente</option>
+                <option value="prezzo-crescente">Prezzo crescente</option>
+                <option value="prezzo-decrescente">Prezzo decrescente</option>
+              </select>
+            </label>
+          </div>
+          <div class="vehicle-grid catalog-grid" id="catalog-grid"></div>
+          <div class="empty-state" id="catalog-empty" hidden>
+            <p class="empty-state__mark" aria-hidden="true">—</p>
+            <h3>Nessuna auto corrisponde ai filtri.</h3>
+            <p>Modifica i criteri di ricerca o cancella i filtri.</p>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <dialog class="vehicle-dialog" id="catalog-dialog" aria-labelledby="catalog-dialog-title">
+      <div class="vehicle-dialog__layout">
+        <div class="vehicle-dialog__gallery">
+          <div class="vehicle-dialog__photo">
+            <img id="catalog-dialog-image" src="" alt="" />
+            <span class="vehicle-dialog__badge" id="catalog-dialog-mode"></span>
+            <span class="vehicle-dialog__image-counter" id="catalog-dialog-counter" aria-live="polite"></span>
+          </div>
+          <div class="vehicle-dialog__thumbs" id="catalog-dialog-thumbnails" aria-label="Foto dell'auto" hidden></div>
+        </div>
+        <div class="vehicle-dialog__content">
+          <form method="dialog"><button class="dialog-close" type="submit" aria-label="Chiudi dettagli">×</button></form>
+          <p class="eyebrow"><span class="eyebrow__index">DETTAGLI</span> AUTO SELEZIONATA</p>
+          <h2 id="catalog-dialog-title"></h2>
+          <p class="vehicle-dialog__price" id="catalog-dialog-price"></p>
+          <p class="vehicle-dialog__description" id="catalog-dialog-description"></p>
+          <dl class="vehicle-dialog__specs" id="catalog-dialog-specs"></dl>
+          <div class="vehicle-dialog__contacts" aria-label="Contatta per questa auto">
+            <a class="button button--dark" id="catalog-dialog-full-details" href="auto.html">Scheda completa <span aria-hidden="true">↗</span></a>
+            <a class="button button--dark" id="catalog-dialog-email" href="#contatti" hidden>Contattaci via email <span aria-hidden="true">↗</span></a>
+            <a class="button button--whatsapp" id="catalog-dialog-whatsapp" href="#contatti" target="_blank" rel="noopener noreferrer" hidden>Contattaci su WhatsApp <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+      </div>
+    </dialog>
+
+    <footer class="site-footer" id="contatti">
+      <div class="site-footer__main">
+        <a class="brand brand--footer" href="index.html#inizio" aria-label="Torna all'inizio"><span data-brand>STRADA</span><span class="brand__dot" aria-hidden="true">.</span></a>
+        <p>Noleggio e vendita auto.<br /><span data-city>La tua città</span></p>
+        <div class="site-footer__contacts">
+          <a id="contact-email" href="mailto:info@example.com">info@example.com</a>
+          <a id="contact-phone" href="tel:" hidden></a>
+        </div>
+      </div>
+      <section class="site-footer__legal" id="legal-details" aria-labelledby="legal-details-title" hidden>
+        <h2 class="site-footer__legal-title" id="legal-details-title">Dati dell'impresa</h2>
+        <dl class="site-footer__legal-list" id="legal-details-list"></dl>
+      </section>
+      <div class="site-footer__bottom">
+        <span>© <span id="current-year"></span> <span data-brand>STRADA</span></span>
+        <a href="#main">Torna su <span aria-hidden="true">↑</span></a>
+      </div>
+    </footer>
+  </body>
+</html>

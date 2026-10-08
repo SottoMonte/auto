@@ -25,6 +25,7 @@ Il CMS usa il backend GitHub di Decap Turbo, distribuito al momento come release
 ## Dati e contatti
 
 - `data/vehicles.json`: elenco auto, prezzi e disponibilità. Il prezzo è totale per la vendita e giornaliero per il noleggio.
+- `parco-auto.html`: filtri per marca, modello, formula, alimentazione, cambio e prezzo ricavati dalle auto disponibili; `auto.html?id=<id>` apre la scheda completa. Ogni auto può avere una foto principale e più foto aggiuntive.
 - `data/site.json`: nome attività, zona e recapiti. I valori iniziali sono dimostrativi: sostituisci nome, zona ed email prima della pubblicazione. Il telefono e WhatsApp sono facoltativi.
 - Le foto iniziali sono immagini dimostrative da Unsplash. Caricando le foto definitive da Decap, i file vengono salvati in `uploads/` nel repository.
 

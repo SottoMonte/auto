@@ -87,6 +87,11 @@ collections:
                   - Automatica
               - { label: Posti, name: seats, widget: number, value_type: int, min: 1, max: 9, required: false }
               - { label: Foto, name: image, widget: image, required: false }
+              - label: Foto aggiuntive
+                name: images
+                widget: list
+                required: false
+                field: { label: Foto, name: image, widget: image }
               - { label: Descrizione, name: description, widget: text, required: false }
               - { label: In evidenza, name: featured, widget: boolean, default: false }
               - { label: Disponibile, name: available, widget: boolean, default: true }

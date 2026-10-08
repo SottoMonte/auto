@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f2f5ee" />
+    <meta
+      name="description"
+      content="Auto selezionate in vendita e a noleggio. Trova la formula giusta e parla direttamente con noi."
+    />
+    <title>STRADA — Noleggio e vendita auto</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Salta al contenuto</a>
+
+    <div class="topline">
+      <div class="topline__inner">
+        <p><span class="topline__dash" aria-hidden="true"></span><span data-city>La tua città</span></p>
+        <p>La strada giusta, senza giri di parole.</p>
+      </div>
+    </div>
+
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="brand" href="#inizio" aria-label="Torna all'inizio">
+          <span data-brand>STRADA</span><span class="brand__dot" aria-hidden="true">.</span>
+        </a>
+        <button
+          class="menu-toggle"
+          type="button"
+          aria-label="Apri il menu"
+          aria-controls="primary-navigation"
+          aria-expanded="false"
+        >
+          <span></span>
+          <span></span>
+        </button>
+        <nav class="primary-nav" id="primary-navigation" aria-label="Navigazione principale">
+          <a href="#stock">Le auto</a>
+          <a href="#servizi">Come funziona</a>
+          <a class="primary-nav__contact" id="header-contact" href="#contatti">
+            Parliamone <span aria-hidden="true">↗</span>
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="inizio" aria-labelledby="hero-title">
+        <div class="hero__copy">
+          <p class="eyebrow"><span class="eyebrow__index">01</span> AUTO, SENZA COMPLICAZIONI</p>
+          <h1 id="hero-title">La tua prossima <em>strada.</em></h1>
+          <p class="hero__intro">
+            Vendita trasparente e noleggio flessibile. Scegli l'auto, raccontaci come vuoi usarla:
+            al resto pensiamo insieme.
+          </p>
+          <div class="hero__actions">
+            <a class="button button--dark" href="#stock">Scopri le auto <span aria-hidden="true">↘</span></a>
+            <a class="text-link" href="#contatti">Parla con una persona <span aria-hidden="true">↗</span></a>
+          </div>
+          <p class="hero__sign"><span aria-hidden="true">—</span> <span id="hero-tagline">Vendita chiara. Noleggio flessibile.</span></p>
+        </div>
+        <div class="hero__media">
+          <img
+            id="hero-image"
+            src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1800&q=88"
+            alt="Auto in primo piano"
+            fetchpriority="high"
+          />
+          <div class="hero__image-meta">
+            <span>IN EVIDENZA</span>
+            <span>DAL PARCO AUTO</span>
+          </div>
+          <div class="hero__caption">
+            <span class="hero__caption-index">01 / SELEZIONE</span>
+            <span id="hero-caption">Le auto del momento</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="trust-strip" aria-label="Il nostro approccio">
+        <div class="trust-strip__item">
+          <span class="trust-strip__number">01</span>
+          <div><strong>Una scelta curata</strong><span>Auto selezionate, dettagli chiari.</span></div>
+        </div>
+        <div class="trust-strip__item">
+          <span class="trust-strip__number">02</span>
+          <div><strong>Due modi di partire</strong><span>Acquisto o noleggio, decidi tu.</span></div>
+        </div>
+        <div class="trust-strip__item">
+          <span class="trust-strip__number">03</span>
+          <div><strong>Contatto diretto</strong><span>Risposte da chi conosce le auto.</span></div>
+        </div>
+      </section>
+
+      <section class="inventory section-wrap" id="stock" aria-labelledby="inventory-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow"><span class="eyebrow__index">02</span> IL PARCO AUTO</p>
+            <h2 id="inventory-title">Trova la tua<br />prossima auto.</h2>
+          </div>
+          <p class="section-heading__note">
+            Per tenerla o per partire subito: qui trovi le auto disponibili, con tutte le informazioni
+            essenziali.
+          </p>
+        </div>
+
+        <div class="inventory-toolbar">
+          <div class="mode-tabs" role="group" aria-label="Filtra per formula">
+            <button type="button" data-mode="tutte" aria-pressed="true">Tutte</button>
+            <button type="button" data-mode="vendita" aria-pressed="false">Vendita</button>
+            <button type="button" data-mode="noleggio" aria-pressed="false">Noleggio</button>
+          </div>
+          <div class="inventory-tools">
+            <label class="search-field">
+              <span class="visually-hidden">Cerca per marca o modello</span>
+              <input id="search-filter" type="search" placeholder="Marca o modello" autocomplete="off" />
+            </label>
+            <label class="select-field">
+              <span class="visually-hidden">Filtra per marca</span>
+              <select id="brand-filter">
+                <option value="tutte">Tutte le marche</option>
+              </select>
+            </label>
+            <label class="select-field">
+              <span class="visually-hidden">Ordina le auto</span>
+              <select id="sort-filter">
+                <option value="evidenza">In evidenza</option>
+                <option value="prezzo-crescente">Prezzo crescente</option>
+                <option value="prezzo-decrescente">Prezzo decrescente</option>
+                <option value="anno-recente">Anno più recente</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <p class="inventory-count" id="vehicle-count" role="status" aria-live="polite">Carico il parco auto…</p>
+        <div class="vehicle-grid" id="vehicle-grid"></div>
+        <div class="empty-state" id="empty-state" hidden>
+          <p class="empty-state__mark" aria-hidden="true">—</p>
+          <h3>Nessuna auto con questi filtri.</h3>
+          <p>Prova a cambiare ricerca o formula.</p>
+        </div>
+      </section>
+
+      <section class="process" id="servizi" aria-labelledby="process-title">
+        <div class="process__inner">
+          <div class="process__intro">
+            <p class="eyebrow eyebrow--light"><span class="eyebrow__index">03</span> POCHI PASSAGGI, CHIARI</p>
+            <h2 id="process-title">Dalla scelta<br />alle chiavi.</h2>
+            <p>Ogni esigenza è diversa. Partiamo da una conversazione e troviamo la formula più adatta.</p>
+          </div>
+          <div class="steps">
+            <article class="step">
+              <span class="step__number">01</span>
+              <h3>Ci dici cosa cerchi</h3>
+              <p>Scrivici per un'auto specifica o raccontaci come la userai.</p>
+            </article>
+            <article class="step">
+              <span class="step__number">02</span>
+              <h3>Verifichiamo insieme</h3>
+              <p>Confermiamo disponibilità, condizioni e prossimi passaggi.</p>
+            </article>
+            <article class="step">
+              <span class="step__number">03</span>
+              <h3>Si parte</h3>
+              <p>Acquisto o noleggio: definiamo i dettagli senza sorprese.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="contact-band" id="contatti" aria-labelledby="contact-title">
+        <div>
+          <p class="eyebrow"><span class="eyebrow__index">04</span> CI SIAMO</p>
+          <h2 id="contact-title">Hai trovato<br />quella giusta?</h2>
+        </div>
+        <div class="contact-band__action">
+          <p>Chiedi informazioni o raccontaci cosa hai in mente. Ti risponde una persona.</p>
+          <a class="button button--dark" id="contact-primary" href="mailto:info@example.com">
+            Scrivici <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="site-footer__main">
+        <a class="brand brand--footer" href="#inizio" aria-label="Torna all'inizio">
+          <span data-brand>STRADA</span><span class="brand__dot" aria-hidden="true">.</span>
+        </a>
+        <p>Noleggio e vendita auto.<br /><span data-city>La tua città</span></p>
+        <div class="site-footer__contacts">
+          <a id="contact-email" href="mailto:info@example.com">info@example.com</a>
+          <a id="contact-phone" href="tel:"></a>
+        </div>
+      </div>
+      <div class="site-footer__bottom">
+        <span>© <span id="current-year"></span> <span data-brand>STRADA</span></span>
+        <a href="#inizio">Torna su <span aria-hidden="true">↑</span></a>
+      </div>
+    </footer>
+
+    <dialog class="vehicle-dialog" id="vehicle-dialog" aria-labelledby="dialog-title">
+      <div class="vehicle-dialog__layout">
+        <div class="vehicle-dialog__photo">
+          <img id="dialog-image" src="" alt="" />
+          <span class="vehicle-dialog__badge" id="dialog-mode"></span>
+        </div>
+        <div class="vehicle-dialog__content">
+          <form method="dialog">
+            <button class="dialog-close" type="submit" aria-label="Chiudi dettagli">×</button>
+          </form>
+          <p class="eyebrow"><span class="eyebrow__index">DETTAGLI</span> AUTO SELEZIONATA</p>
+          <h2 id="dialog-title"></h2>
+          <p class="vehicle-dialog__price" id="dialog-price"></p>
+          <p class="vehicle-dialog__description" id="dialog-description"></p>
+          <dl class="vehicle-dialog__specs" id="dialog-specs"></dl>
+          <a class="button button--dark" id="dialog-contact" href="#contatti">
+            Chiedi informazioni <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </div>
+    </dialog>
+  </body>
+</html>

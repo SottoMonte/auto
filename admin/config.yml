@@ -1,0 +1,83 @@
+backend:
+  name: turbo-github
+  repo: "owner/repository"
+  turbo_site_id: "aa485609-5ec7-4033-a2f6-ad57c7b35d67"
+  branch: main
+
+locale: it
+publish_mode: simple
+media_folder: uploads
+public_folder: /uploads
+
+collections:
+  - name: impostazioni
+    label: Impostazioni sito
+    files:
+      - name: azienda
+        label: Azienda e contatti
+        file: data/site.json
+        fields:
+          - { label: Nome attività, name: brand, widget: string }
+          - { label: Città o zona, name: city, widget: string }
+          - { label: Frase introduttiva, name: tagline, widget: string }
+          - { label: Telefono, name: phone, widget: string, required: false }
+          - label: Numero WhatsApp
+            name: whatsapp
+            widget: string
+            required: false
+            hint: Inserisci il prefisso internazionale e il numero, senza spazi o simboli.
+          - { label: Email, name: email, widget: string, required: false }
+
+  - name: parco_auto
+    label: Parco auto
+    files:
+      - name: veicoli
+        label: Veicoli
+        file: data/vehicles.json
+        fields:
+          - label: Auto
+            name: vehicles
+            widget: list
+            label_singular: auto
+            fields:
+              - label: ID univoco
+                name: id
+                widget: string
+                hint: Breve e senza spazi, per esempio fiat-500e-2024.
+              - { label: Nome modello, name: title, widget: string }
+              - { label: Marca, name: brand, widget: string }
+              - label: Formula
+                name: mode
+                widget: select
+                options:
+                  - { label: Vendita, value: vendita }
+                  - { label: Noleggio, value: noleggio }
+              - { label: Anno, name: year, widget: number, value_type: int, min: 1990, max: 2035 }
+              - label: Prezzo in euro
+                name: price
+                widget: number
+                value_type: int
+                min: 0
+                hint: Prezzo totale per la vendita o tariffa giornaliera per il noleggio.
+              - { label: Chilometri, name: kilometers, widget: number, value_type: int, min: 0, required: false }
+              - label: Alimentazione
+                name: fuel
+                widget: select
+                options:
+                  - Benzina
+                  - Diesel
+                  - Ibrida
+                  - Elettrica
+                  - GPL
+                  - Altro
+              - label: Cambio
+                name: transmission
+                widget: select
+                options:
+                  - Manuale
+                  - Automatica
+              - { label: Posti, name: seats, widget: number, value_type: int, min: 1, max: 9, required: false }
+              - { label: Foto, name: image, widget: image, required: false }
+              - { label: Descrizione, name: description, widget: text, required: false }
+              - { label: In evidenza, name: featured, widget: boolean, default: false }
+              - { label: Disponibile, name: available, widget: boolean, default: true }

@@ -1,8 +1,15 @@
 {
   "brand": "STRADA",
-  "city": "La tua città",
+  "city": "Montoro (AV)",
   "tagline": "Vendita chiara. Noleggio flessibile.",
   "phone": "",
   "whatsapp": "",
-  "email": "info@example.com"
+  "email": "v8njo29gs@mozmail.com",
+  "legal": {
+    "holder": "GALDERISI NICOLA",
+    "legal_form": "Impresa individuale",
+    "registered_office": "Via Curti 1, CAP 83025, frazione Torchiati, Montoro (AV)",
+    "vat_number": "06410160656",
+    "rea": "AV - 313427"
+  }
 }

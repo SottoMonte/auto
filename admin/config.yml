@@ -25,8 +25,17 @@ collections:
             name: whatsapp
             widget: string
             required: false
-            hint: Inserisci il prefisso internazionale e il numero, senza spazi o simboli.
-          - { label: Email, name: email, widget: string, required: false }
+            hint: Inserisci il numero completo con prefisso internazionale (es. 393331234567), solo cifre.
+          - { label: Email di contatto, name: email, widget: string, required: false }
+          - label: Dati dell'impresa
+            name: legal
+            widget: object
+            fields:
+              - { label: Titolare o denominazione, name: holder, widget: string }
+              - { label: Forma giuridica, name: legal_form, widget: string }
+              - { label: Sede legale, name: registered_office, widget: string }
+              - { label: Partita IVA, name: vat_number, widget: string }
+              - { label: Numero REA, name: rea, widget: string }
 
   - name: parco_auto
     label: Parco auto

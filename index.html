@@ -68,20 +68,46 @@
           </div>
           <p class="hero__sign"><span aria-hidden="true">—</span> <span id="hero-tagline">Vendita chiara. Noleggio flessibile.</span></p>
         </div>
-        <div class="hero__media">
+        <div class="hero__media" role="region" aria-roledescription="galleria" aria-label="Auto in evidenza">
           <img
             id="hero-image"
             src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1800&q=88"
             alt="Auto in primo piano"
             fetchpriority="high"
           />
+          <button class="hero__open-details" id="hero-open-details" type="button" aria-label="Apri i dettagli dell'auto in evidenza"></button>
           <div class="hero__image-meta">
             <span>IN EVIDENZA</span>
-            <span>DAL PARCO AUTO</span>
+            <span id="hero-mode">DAL PARCO AUTO</span>
           </div>
           <div class="hero__caption">
-            <span class="hero__caption-index">01 / SELEZIONE</span>
-            <span id="hero-caption">Le auto del momento</span>
+            <div class="hero__vehicle-info">
+              <span class="hero__caption-index" id="hero-counter" aria-live="off">01 / 01</span>
+              <h2 class="hero__caption-title" id="hero-caption">Le auto del momento</h2>
+              <ul class="hero__vehicle-specs" id="hero-details" aria-label="Caratteristiche dell'auto"></ul>
+            </div>
+            <div class="hero__caption-actions">
+              <p class="hero__vehicle-price">
+                <strong id="hero-price"></strong>
+                <span id="hero-price-label"></span>
+              </p>
+              <div class="hero__gallery-controls" role="group" aria-label="Controlli galleria">
+                <button id="hero-previous" type="button" aria-label="Auto in evidenza precedente" hidden>
+                  <span aria-hidden="true">←</span>
+                </button>
+                <button id="hero-next" type="button" aria-label="Auto in evidenza successiva" hidden>
+                  <span aria-hidden="true">→</span>
+                </button>
+                <button
+                  class="hero__autoplay-control"
+                  id="hero-autoplay"
+                  type="button"
+                  aria-label="Metti in pausa la galleria"
+                  aria-pressed="false"
+                  hidden
+                >Pausa</button>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -185,9 +211,14 @@
         </div>
         <div class="contact-band__action">
           <p>Chiedi informazioni o raccontaci cosa hai in mente. Ti risponde una persona.</p>
-          <a class="button button--dark" id="contact-primary" href="mailto:info@example.com">
-            Scrivici <span aria-hidden="true">↗</span>
-          </a>
+          <div class="contact-band__links">
+            <a class="button button--dark" id="contact-primary" href="mailto:info@example.com">
+              <span id="contact-primary-label">Scrivici via email</span><span aria-hidden="true">↗</span>
+            </a>
+            <a class="button button--whatsapp" id="contact-whatsapp" href="#contatti" target="_blank" rel="noopener noreferrer" hidden>
+              Chatta su WhatsApp <span aria-hidden="true">↗</span>
+            </a>
+          </div>
         </div>
       </section>
     </main>
@@ -203,6 +234,10 @@
           <a id="contact-phone" href="tel:"></a>
         </div>
       </div>
+      <section class="site-footer__legal" id="legal-details" aria-labelledby="legal-details-title" hidden>
+        <h2 class="site-footer__legal-title" id="legal-details-title">Dati dell'impresa</h2>
+        <dl class="site-footer__legal-list" id="legal-details-list"></dl>
+      </section>
       <div class="site-footer__bottom">
         <span>© <span id="current-year"></span> <span data-brand>STRADA</span></span>
         <a href="#inizio">Torna su <span aria-hidden="true">↑</span></a>
@@ -224,9 +259,14 @@
           <p class="vehicle-dialog__price" id="dialog-price"></p>
           <p class="vehicle-dialog__description" id="dialog-description"></p>
           <dl class="vehicle-dialog__specs" id="dialog-specs"></dl>
-          <a class="button button--dark" id="dialog-contact" href="#contatti">
-            Chiedi informazioni <span aria-hidden="true">↗</span>
-          </a>
+          <div class="vehicle-dialog__contacts" id="dialog-contacts" aria-label="Contatta per questa auto">
+            <a class="button button--dark" id="dialog-email-contact" href="#contatti" hidden>
+              Contattaci via email <span aria-hidden="true">↗</span>
+            </a>
+            <a class="button button--whatsapp" id="dialog-whatsapp-contact" href="#contatti" target="_blank" rel="noopener noreferrer" hidden>
+              Contattaci su WhatsApp <span aria-hidden="true">↗</span>
+            </a>
+          </div>
         </div>
       </div>
     </dialog>

@@ -8,6 +8,10 @@ const state = {
   brand: "tutte",
   sort: "evidenza",
   search: "",
+  heroVehicles: [],
+  heroIndex: 0,
+  heroTimer: null,
+  heroPaused: false,
 };
 
 const elements = {
@@ -15,18 +19,33 @@ const elements = {
   contactEmail: document.querySelector("#contact-email"),
   contactPhone: document.querySelector("#contact-phone"),
   contactPrimary: document.querySelector("#contact-primary"),
+  contactPrimaryLabel: document.querySelector("#contact-primary-label"),
+  contactWhatsapp: document.querySelector("#contact-whatsapp"),
   dialog: document.querySelector("#vehicle-dialog"),
-  dialogContact: document.querySelector("#dialog-contact"),
   dialogDescription: document.querySelector("#dialog-description"),
+  dialogEmailContact: document.querySelector("#dialog-email-contact"),
   dialogImage: document.querySelector("#dialog-image"),
   dialogMode: document.querySelector("#dialog-mode"),
   dialogPrice: document.querySelector("#dialog-price"),
   dialogSpecs: document.querySelector("#dialog-specs"),
   dialogTitle: document.querySelector("#dialog-title"),
+  dialogWhatsappContact: document.querySelector("#dialog-whatsapp-contact"),
   emptyState: document.querySelector("#empty-state"),
+  heroAutoplay: document.querySelector("#hero-autoplay"),
   heroCaption: document.querySelector("#hero-caption"),
+  heroCounter: document.querySelector("#hero-counter"),
+  heroDetails: document.querySelector("#hero-details"),
   heroImage: document.querySelector("#hero-image"),
+  heroMedia: document.querySelector(".hero__media"),
+  heroMode: document.querySelector("#hero-mode"),
+  heroNext: document.querySelector("#hero-next"),
+  heroOpenDetails: document.querySelector("#hero-open-details"),
+  heroPrice: document.querySelector("#hero-price"),
+  heroPriceLabel: document.querySelector("#hero-price-label"),
+  heroPrevious: document.querySelector("#hero-previous"),
   heroTagline: document.querySelector("#hero-tagline"),
+  legalDetails: document.querySelector("#legal-details"),
+  legalDetailsList: document.querySelector("#legal-details-list"),
   menuToggle: document.querySelector(".menu-toggle"),
   navigation: document.querySelector("#primary-navigation"),
   searchFilter: document.querySelector("#search-filter"),
@@ -88,11 +107,20 @@ function validEmail(value) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? email : "";
 }
 
-function contactUrl(subject = "") {
+function whatsappUrl(subject = "") {
   const whatsapp = String(state.site.whatsapp ?? "").replace(/\D/g, "");
+  if (whatsapp.length < 8) {
+    return "";
+  }
+
   const message = subject || `Buongiorno, vorrei ricevere informazioni da ${state.site.brand || "STRADA"}.`;
-  if (whatsapp.length >= 8) {
-    return `https://wa.me/${whatsapp}?text=${encodeURIComponent(message)}`;
+  return `https://wa.me/${whatsapp}?text=${encodeURIComponent(message)}`;
+}
+
+function contactUrl(subject = "") {
+  const whatsapp = whatsappUrl(subject);
+  if (whatsapp) {
+    return whatsapp;
   }
 
   const email = validEmail(state.site.email);
@@ -108,6 +136,7 @@ function updateSiteDetails() {
   const city = String(state.site.city || "La tua città").trim();
   const email = validEmail(state.site.email);
   const phone = String(state.site.phone || "").trim();
+  const whatsapp = whatsappUrl();
 
   document.querySelectorAll("[data-brand]").forEach((element) => {
     element.textContent = brand;
@@ -118,7 +147,17 @@ function updateSiteDetails() {
 
   document.title = `${brand} — Noleggio e vendita auto`;
   elements.heroTagline.textContent = state.site.tagline || "Vendita chiara. Noleggio flessibile.";
-  elements.contactPrimary.href = contactUrl();
+  elements.contactPrimary.hidden = !email && !whatsapp;
+  elements.contactPrimary.href = email
+    ? `mailto:${email}?subject=${encodeURIComponent("Richiesta informazioni")}`
+    : whatsapp || "#contatti";
+  elements.contactPrimaryLabel.textContent = email ? "Scrivici via email" : "Chatta su WhatsApp";
+  elements.contactWhatsapp.hidden = !email || !whatsapp;
+  if (whatsapp) {
+    elements.contactWhatsapp.href = whatsapp;
+  } else {
+    elements.contactWhatsapp.removeAttribute("href");
+  }
   document.querySelector("#header-contact").href = contactUrl();
   elements.contactEmail.hidden = !email;
   if (email) {
@@ -131,18 +170,92 @@ function updateSiteDetails() {
     elements.contactPhone.href = `tel:${phone.replace(/[^\d+]/g, "")}`;
     elements.contactPhone.textContent = phone;
   }
+
+  const legal = state.site.legal || {};
+  const legalFields = [
+    ["Titolare o denominazione", legal.holder],
+    ["Forma giuridica", legal.legal_form],
+    ["Sede legale", legal.registered_office],
+    ["Partita IVA", legal.vat_number],
+    ["REA", legal.rea],
+  ];
+  const legalEntries = legalFields
+    .filter(([, value]) => String(value ?? "").trim())
+    .map(([label, value]) => {
+      const row = document.createElement("div");
+      const term = document.createElement("dt");
+      const description = document.createElement("dd");
+      term.textContent = label;
+      description.textContent = String(value).trim();
+      row.append(term, description);
+      return row;
+    });
+  elements.legalDetailsList.replaceChildren(...legalEntries);
+  elements.legalDetails.hidden = legalEntries.length === 0;
 }
 
-function setHeroVehicle() {
-  const vehicle = state.vehicles.find((item) => item.featured && item.available !== false) ||
-    state.vehicles.find((item) => item.available !== false);
-  if (!vehicle) {
+function setHeroVehicle(index = 0) {
+  if (state.heroVehicles.length === 0) {
+    const featuredVehicles = state.vehicles.filter((item) => item.featured && item.available !== false);
+    state.heroVehicles = featuredVehicles.length
+      ? featuredVehicles
+      : state.vehicles.filter((item) => item.available !== false).slice(0, 1);
+  }
+
+  const vehicleCount = state.heroVehicles.length;
+  if (vehicleCount === 0) {
+    elements.heroPrevious.hidden = true;
+    elements.heroNext.hidden = true;
+    elements.heroAutoplay.hidden = true;
     return;
   }
 
+  state.heroIndex = ((index % vehicleCount) + vehicleCount) % vehicleCount;
+  const vehicle = state.heroVehicles[state.heroIndex];
   elements.heroImage.src = imageUrl(vehicle.image);
-  elements.heroImage.alt = vehicle.title || "Auto in primo piano";
+  elements.heroImage.alt = `${vehicle.title || "Auto"}, in evidenza`;
   elements.heroCaption.textContent = vehicle.title || "Le auto del momento";
+  elements.heroOpenDetails.setAttribute("aria-label", `Apri i dettagli di ${vehicle.title || "auto in evidenza"}`);
+  elements.heroCounter.textContent = `${String(state.heroIndex + 1).padStart(2, "0")} / ${String(vehicleCount).padStart(2, "0")}`;
+  const isRental = vehicle.mode === "noleggio";
+  const specifications = [
+    vehicle.year ? String(vehicle.year) : "",
+    vehicle.kilometers !== undefined && vehicle.kilometers !== "" ? `${formatNumber(vehicle.kilometers)} km` : "",
+    vehicle.fuel,
+    vehicle.transmission,
+    vehicle.seats ? `${vehicle.seats} posti` : "",
+  ].filter(Boolean);
+  elements.heroDetails.replaceChildren(...specifications.map((specification) => {
+    const item = document.createElement("li");
+    item.textContent = specification;
+    return item;
+  }));
+  elements.heroMode.textContent = isRental ? "NOLEGGIO" : "VENDITA";
+  elements.heroPrice.textContent = euro.format(Number(vehicle.price) || 0);
+  elements.heroPriceLabel.textContent = isRental ? "al giorno" : "prezzo";
+  elements.heroPrevious.hidden = vehicleCount < 2;
+  elements.heroNext.hidden = vehicleCount < 2;
+}
+
+function setHeroAutoplay(paused, initial = false) {
+  window.clearInterval(state.heroTimer);
+  state.heroTimer = null;
+  state.heroPaused = paused;
+
+  const canRotate = state.heroVehicles.length > 1;
+  elements.heroAutoplay.hidden = !canRotate;
+  if (!canRotate) {
+    return;
+  }
+
+  const label = paused ? (initial ? "Avvia" : "Riprendi") : "Pausa";
+  elements.heroAutoplay.textContent = label;
+  elements.heroAutoplay.setAttribute("aria-label", paused ? `${label} la galleria` : "Metti in pausa la galleria");
+  elements.heroAutoplay.setAttribute("aria-pressed", String(paused));
+
+  if (!paused) {
+    state.heroTimer = window.setInterval(() => setHeroVehicle(state.heroIndex + 1), 7000);
+  }
 }
 
 function buildBrandFilter() {
@@ -264,7 +377,26 @@ function openVehicleDetails(vehicleId) {
   elements.dialogImage.src = imageUrl(vehicle.image);
   elements.dialogImage.alt = title;
   elements.dialogDescription.textContent = vehicle.description || "Contattaci per verificare disponibilità e condizioni.";
-  elements.dialogContact.href = contactUrl(`Buongiorno, vorrei informazioni su ${title}.`);
+  const modeLabel = isRental ? "noleggio" : "vendita";
+  const yearLabel = vehicle.year ? `, anno ${vehicle.year}` : "";
+  const message = `Buongiorno, vorrei informazioni su ${title}${yearLabel} (${modeLabel}).`;
+  const subject = `Informazioni ${modeLabel}: ${title}`;
+  const email = validEmail(state.site.email);
+  const whatsapp = whatsappUrl(message);
+
+  elements.dialogEmailContact.hidden = !email;
+  if (email) {
+    elements.dialogEmailContact.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+  } else {
+    elements.dialogEmailContact.removeAttribute("href");
+  }
+
+  elements.dialogWhatsappContact.hidden = !whatsapp;
+  if (whatsapp) {
+    elements.dialogWhatsappContact.href = whatsapp;
+  } else {
+    elements.dialogWhatsappContact.removeAttribute("href");
+  }
   elements.dialogPrice.replaceChildren(document.createTextNode(euro.format(Number(vehicle.price) || 0)));
   const suffix = document.createElement("span");
   suffix.textContent = isRental ? "al giorno" : "prezzo";
@@ -308,6 +440,27 @@ function bindEvents() {
     const button = event.target.closest("[data-open-vehicle]");
     if (button) {
       openVehicleDetails(button.dataset.openVehicle);
+    }
+  });
+  elements.heroPrevious.addEventListener("click", () => {
+    setHeroAutoplay(true);
+    setHeroVehicle(state.heroIndex - 1);
+  });
+  elements.heroNext.addEventListener("click", () => {
+    setHeroAutoplay(true);
+    setHeroVehicle(state.heroIndex + 1);
+  });
+  elements.heroAutoplay.addEventListener("click", () => setHeroAutoplay(!state.heroPaused));
+  elements.heroOpenDetails.addEventListener("click", () => {
+    const vehicle = state.heroVehicles[state.heroIndex];
+    if (vehicle) {
+      setHeroAutoplay(true);
+      openVehicleDetails(vehicle.id);
+    }
+  });
+  elements.heroMedia.addEventListener("focusin", (event) => {
+    if (event.target !== elements.heroAutoplay && !state.heroPaused) {
+      setHeroAutoplay(true);
     }
   });
   elements.dialog.addEventListener("click", (event) => {
@@ -362,6 +515,7 @@ async function init() {
   renderVehicles();
   document.querySelector("#current-year").textContent = String(new Date().getFullYear());
   bindEvents();
+  setHeroAutoplay(window.matchMedia("(prefers-reduced-motion: reduce)").matches, true);
 }
 
 init().catch((error) => {

@@ -307,6 +307,25 @@ select:focus-visible {
   background: var(--forest);
 }
 
+.button--whatsapp {
+  background: #25d366;
+  color: #10291d;
+}
+
+.button--whatsapp:hover {
+  background: #20b958;
+}
+
+.contact-band__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.contact-band__links .button[hidden] {
+  display: none;
+}
+
 .text-link {
   font-size: 12px;
   font-weight: 700;
@@ -336,7 +355,7 @@ select:focus-visible {
 
 .hero__media {
   position: relative;
-  min-height: 585px;
+  min-height: 620px;
   overflow: hidden;
   background: #d5ddd6;
 }
@@ -344,13 +363,26 @@ select:focus-visible {
 .hero__media > img {
   width: 100%;
   height: 100%;
-  min-height: 585px;
+  min-height: 620px;
   object-fit: cover;
   object-position: center;
 }
 
+.hero__open-details {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: zoom-in;
+}
+
 .hero__image-meta {
   position: absolute;
+  z-index: 2;
   top: 22px;
   right: 22px;
   left: 22px;
@@ -364,23 +396,120 @@ select:focus-visible {
 
 .hero__caption {
   position: absolute;
+  z-index: 2;
   right: 22px;
   bottom: 22px;
   left: 22px;
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
   gap: 14px;
-  padding: 17px 18px;
+  min-height: 144px;
+  padding: 18px;
   background: var(--paper);
   font-size: 13px;
   font-weight: 700;
+}
+
+.hero__vehicle-info {
+  display: grid;
+  min-width: 0;
+  gap: 6px;
+}
+
+.hero__caption-title {
+  margin: 0;
+  font-family: var(--display);
+  font-size: 29px;
+  font-weight: 600;
+  line-height: 1;
+  overflow-wrap: anywhere;
 }
 
 .hero__caption-index {
   color: var(--muted);
   font-size: 9px;
   font-weight: 700;
+}
+
+.hero__gallery-controls {
+  display: flex;
+  flex: none;
+  gap: 6px;
+}
+
+.hero__gallery-controls button {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--ink);
+  background: transparent;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.hero__gallery-controls button:hover {
+  background: var(--lime);
+}
+
+.hero__gallery-controls .hero__autoplay-control {
+  width: auto;
+  min-width: 68px;
+  padding: 0 8px;
+  font-family: var(--body);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.hero__gallery-controls button[hidden] {
+  display: none;
+}
+
+.hero__vehicle-specs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 9px;
+  padding: 0;
+  margin: 0;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1.4;
+  list-style: none;
+}
+
+.hero__vehicle-specs li {
+  white-space: nowrap;
+}
+
+.hero__caption-actions {
+  display: grid;
+  justify-items: end;
+  gap: 12px;
+}
+
+.hero__vehicle-price {
+  display: grid;
+  justify-items: end;
+  gap: 2px;
+  margin: 0;
+}
+
+.hero__vehicle-price strong {
+  font-family: var(--display);
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.hero__vehicle-price span {
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 500;
 }
 
 .trust-strip {
@@ -822,6 +951,43 @@ select:focus-visible {
   text-decoration: none;
 }
 
+.site-footer__legal {
+  padding: 22px 0 26px;
+  border-top: 1px solid #3b4742;
+}
+
+.site-footer__legal[hidden] {
+  display: none;
+}
+
+.site-footer__legal-title {
+  margin: 0;
+  color: #c1d0c8;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.site-footer__legal-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr));
+  gap: 14px 22px;
+  margin: 16px 0 0;
+}
+
+.site-footer__legal-list dt {
+  color: #c1d0c8;
+  font-size: 9px;
+  text-transform: uppercase;
+}
+
+.site-footer__legal-list dd {
+  margin: 3px 0 0;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
 .site-footer__bottom {
   display: flex;
   justify-content: space-between;
@@ -905,6 +1071,17 @@ select:focus-visible {
   cursor: pointer;
 }
 
+.vehicle-dialog__contacts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.vehicle-dialog__contacts .button[hidden] {
+  display: none;
+}
+
 .vehicle-dialog h2 {
   margin-top: 19px;
   font-size: 48px;
@@ -961,7 +1138,7 @@ select:focus-visible {
 @media (max-width: 1050px) {
   .hero {
     grid-template-columns: 0.95fr 1.05fr;
-    min-height: 520px;
+    min-height: 560px;
   }
 
   .hero__copy {
@@ -974,7 +1151,7 @@ select:focus-visible {
 
   .hero__media,
   .hero__media > img {
-    min-height: 520px;
+    min-height: 560px;
   }
 
   .inventory-toolbar {
@@ -1073,8 +1250,48 @@ select:focus-visible {
 
   .hero__media,
   .hero__media > img {
-    min-height: 360px;
-    max-height: 470px;
+    min-height: 500px;
+    max-height: 590px;
+  }
+
+  .hero__caption {
+    right: 12px;
+    bottom: 12px;
+    left: 12px;
+    min-height: 158px;
+    padding: 14px;
+    gap: 10px;
+  }
+
+  .hero__caption-title {
+    font-size: 25px;
+  }
+
+  .hero__vehicle-specs {
+    gap: 4px 7px;
+    font-size: 9px;
+  }
+
+  .hero__caption-actions {
+    gap: 9px;
+  }
+
+  .hero__vehicle-price strong {
+    font-size: 24px;
+  }
+
+  .hero__gallery-controls {
+    gap: 4px;
+  }
+
+  .hero__gallery-controls button {
+    width: 32px;
+    height: 32px;
+  }
+
+  .hero__gallery-controls .hero__autoplay-control {
+    min-width: 60px;
+    padding: 0 6px;
   }
 
   .trust-strip {
@@ -1228,11 +1445,7 @@ select:focus-visible {
   }
 
   .hero__caption {
-    right: 12px;
-    bottom: 12px;
-    left: 12px;
-    padding: 13px;
-    font-size: 11px;
+    padding: 12px;
   }
 
   .hero__image-meta {

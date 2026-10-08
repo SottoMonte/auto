@@ -92,21 +92,6 @@
       "image": "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=1200&q=82",
       "description": "Una city car pratica per gli spostamenti quotidiani. Scrivici per verificare le date e i termini del noleggio.",
       "year": 2024
-    },
-    {
-      "mode": "vendita",
-      "transmission": "Manuale",
-      "brand": "fiat",
-      "price": 10000,
-      "available": true,
-      "kilometers": 3000,
-      "featured": false,
-      "seats": 4,
-      "fuel": "Ibrida",
-      "title": "ferrai 48",
-      "id": "fiat-tipo",
-      "description": "dsadasdada",
-      "year": 2024
     }
   ]
 }

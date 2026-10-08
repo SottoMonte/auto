@@ -1,6 +1,6 @@
 backend:
   name: turbo-github
-  repo: "owner/repository"
+  repo: "SottoMonte/auto"
   turbo_site_id: "aa485609-5ec7-4033-a2f6-ad57c7b35d67"
   branch: main
 

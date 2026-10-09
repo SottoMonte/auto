@@ -1184,6 +1184,9 @@ select:focus-visible {
   color: var(--footer-muted);
   font-size: 10px;
 }
+  #nl-badge-frame {
+    display: none !important;
+  }
 
 .site-footer__bottom a {
   text-decoration: none;

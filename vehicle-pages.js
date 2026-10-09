@@ -672,6 +672,7 @@ async function initializeVehiclePages() {
   const [vehiclesData, siteData] = await Promise.all([vehiclesResponse.json(), siteResponse.json()]);
   pageState.vehicles = Array.isArray(vehiclesData.vehicles) ? vehiclesData.vehicles : [];
   pageState.site = siteData;
+  window.applySiteTheme(pageState.site.theme);
   updateSharedContent();
 
   if (document.body.dataset.page === "catalog") {

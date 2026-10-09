@@ -32,6 +32,18 @@ collections:
           - { label: Email di contatto, name: email, widget: string, required: false }
           - { label: Nome pagina Facebook, name: facebook, widget: string, required: false }
           - { label: Profilo Instagram, name: instagram, widget: string, required: false }
+          - label: Colori del sito
+            name: theme
+            widget: object
+            fields:
+              - { label: Primario, name: primary, widget: color, required: false }
+              - { label: Secondario, name: secondary, widget: color, required: false }
+              - { label: Accento, name: accent, widget: color, required: false }
+              - { label: Evidenziazione, name: highlight, widget: color, required: false }
+              - { label: Sfondo pagina (body), name: body, widget: color, required: false }
+              - { label: Testo principale (body text), name: body_text, widget: color, required: false }
+              - { label: Testo secondario, name: muted, widget: color, required: false }
+              - { label: Bordi, name: border, widget: color, required: false }
           - label: Dati dell'impresa
             name: legal
             widget: object

@@ -1,15 +1,53 @@
 :root {
   color-scheme: light;
-  --paper: #f2f5ee;
-  --ink: #18211e;
-  --forest: #173a30;
+  --paper: #f3f4f5;
+  --ink: #17191c;
+  --forest: #202327;
   --header-bg: var(--ink);
-  --topline-bg: #2f7a4f;
-  --muted: #6b7771;
-  --line: #cbd4cc;
-  --lime: #d9ff5c;
-  --coral: #fa7654;
+  --header-text: var(--paper);
+  --header-border: #3d4442;
+  --header-control-border: #7b8582;
+  --topline-bg: #b4112a;
+  --topline-text: var(--paper);
+  --muted: #646b72;
+  --line: #cdd2d6;
+  --lime: #e7e9eb;
+  --coral: #cc1f38;
+  --success: #4f9b66;
   --white: #fff;
+  --hero-bg: var(--lime);
+  --hero-text: var(--ink);
+  --hero-emphasis: var(--forest);
+  --hero-media-bg: #d5ddd6;
+  --hero-caption-bg: var(--paper);
+  --hero-caption-text: var(--ink);
+  --hero-caption-muted: var(--muted);
+  --trust-bg: var(--paper);
+  --trust-text: var(--ink);
+  --trust-muted: var(--muted);
+  --trust-accent: var(--coral);
+  --catalog-bg: var(--paper);
+  --catalog-text: var(--ink);
+  --catalog-filter-bg: var(--lime);
+  --catalog-active-bg: var(--forest);
+  --catalog-active-text: var(--white);
+  --card-bg: var(--paper);
+  --card-text: var(--ink);
+  --card-muted: var(--muted);
+  --card-media-bg: #dce3dc;
+  --process-bg: var(--forest);
+  --process-text: var(--paper);
+  --process-muted: #c1d0c8;
+  --process-border: #597168;
+  --contact-bg: var(--coral);
+  --contact-text: var(--paper);
+  --footer-bg: var(--ink);
+  --footer-text: var(--paper);
+  --footer-muted: #c1d0c8;
+  --footer-border: #3b4742;
+  --whatsapp-bg: #25d366;
+  --whatsapp-text: #10291d;
+  --whatsapp-hover: #20b958;
   --display: "Barlow Condensed", Impact, sans-serif;
   --body: "DM Sans", sans-serif;
 }
@@ -93,7 +131,7 @@ select:focus-visible {
 
 .topline {
   background: var(--topline-bg);
-  color: var(--paper);
+  color: var(--topline-text);
   font-size: 11px;
 }
 
@@ -192,8 +230,8 @@ select:focus-visible {
   position: relative;
   z-index: 5;
   background: var(--header-bg);
-  color: var(--paper);
-  border-bottom: 1px solid rgb(255 255 255 / 16%);
+  color: var(--header-text);
+  border-bottom: 1px solid var(--header-border);
 }
 
 .site-header__inner {
@@ -228,7 +266,7 @@ select:focus-visible {
 }
 
 .site-header .brand {
-  color: var(--paper);
+  color: var(--header-text);
 }
 
 .brand--footer .brand__logo {
@@ -259,7 +297,7 @@ select:focus-visible {
   gap: 14px;
   min-height: 42px;
   padding: 0 16px;
-  border: 1px solid var(--paper);
+  border: 1px solid var(--header-text);
 }
 
 .primary-nav__contact:hover {
@@ -272,7 +310,7 @@ select:focus-visible {
   width: 44px;
   height: 44px;
   padding: 12px 9px;
-  border: 1px solid rgb(255 255 255 / 45%);
+  border: 1px solid var(--header-control-border);
   background: transparent;
   cursor: pointer;
 }
@@ -281,7 +319,7 @@ select:focus-visible {
   display: block;
   height: 2px;
   margin: 4px 0;
-  background: var(--paper);
+  background: var(--header-text);
   transition: transform 180ms ease;
 }
 
@@ -307,7 +345,8 @@ select:focus-visible {
   align-items: flex-start;
   justify-content: center;
   padding: 64px 7.5%;
-  background: var(--lime);
+  background: var(--hero-bg);
+  color: var(--hero-text);
 }
 
 .eyebrow {
@@ -342,7 +381,7 @@ select:focus-visible {
 }
 
 .hero h1 em {
-  color: var(--forest);
+  color: var(--hero-emphasis);
   font-style: normal;
 }
 
@@ -390,12 +429,12 @@ select:focus-visible {
 }
 
 .button--whatsapp {
-  background: #25d366;
-  color: #10291d;
+  background: var(--whatsapp-bg);
+  color: var(--whatsapp-text);
 }
 
 .button--whatsapp:hover {
-  background: #20b958;
+  background: var(--whatsapp-hover);
 }
 
 .contact-band__links {
@@ -439,7 +478,7 @@ select:focus-visible {
   position: relative;
   min-height: 620px;
   overflow: hidden;
-  background: #d5ddd6;
+  background: var(--hero-media-bg);
 }
 
 .hero__media > img {
@@ -488,7 +527,8 @@ select:focus-visible {
   gap: 14px;
   min-height: 144px;
   padding: 18px;
-  background: var(--paper);
+  background: var(--hero-caption-bg);
+  color: var(--hero-caption-text);
   font-size: 13px;
   font-weight: 700;
 }
@@ -509,7 +549,7 @@ select:focus-visible {
 }
 
 .hero__caption-index {
-  color: var(--muted);
+  color: var(--hero-caption-muted);
   font-size: 9px;
   font-weight: 700;
 }
@@ -526,7 +566,7 @@ select:focus-visible {
   height: 36px;
   place-items: center;
   padding: 0;
-  border: 1px solid var(--ink);
+  border: 1px solid var(--hero-caption-text);
   background: transparent;
   font-size: 20px;
   line-height: 1;
@@ -534,7 +574,7 @@ select:focus-visible {
 }
 
 .hero__gallery-controls button:hover {
-  background: var(--lime);
+  background: var(--hero-bg);
 }
 
 .hero__gallery-controls .hero__autoplay-control {
@@ -556,7 +596,7 @@ select:focus-visible {
   gap: 4px 9px;
   padding: 0;
   margin: 0;
-  color: var(--muted);
+  color: var(--hero-caption-muted);
   font-size: 10px;
   font-weight: 500;
   line-height: 1.4;
@@ -589,7 +629,7 @@ select:focus-visible {
 }
 
 .hero__vehicle-price span {
-  color: var(--muted);
+  color: var(--hero-caption-muted);
   font-size: 9px;
   font-weight: 500;
 }
@@ -600,6 +640,8 @@ select:focus-visible {
   max-width: 1440px;
   padding: 0 42px;
   margin: 0 auto;
+  background: var(--trust-bg);
+  color: var(--trust-text);
   border-bottom: 1px solid var(--line);
 }
 
@@ -618,7 +660,7 @@ select:focus-visible {
 
 .trust-strip__number {
   padding-top: 2px;
-  color: var(--coral);
+  color: var(--trust-accent);
   font-size: 10px;
   font-weight: 700;
 }
@@ -633,7 +675,7 @@ select:focus-visible {
 }
 
 .trust-strip__item div span {
-  color: var(--muted);
+  color: var(--trust-muted);
   font-size: 11px;
 }
 
@@ -684,7 +726,7 @@ select:focus-visible {
 .mode-tabs {
   gap: 5px;
   padding: 4px;
-  background: #e5ebe3;
+  background: var(--catalog-filter-bg);
 }
 
 .mode-tabs button {
@@ -698,8 +740,8 @@ select:focus-visible {
 }
 
 .mode-tabs button[aria-pressed="true"] {
-  background: var(--forest);
-  color: var(--white);
+  background: var(--catalog-active-bg);
+  color: var(--catalog-active-text);
 }
 
 .inventory-tools {
@@ -750,6 +792,8 @@ select:focus-visible {
   display: flex;
   min-width: 0;
   flex-direction: column;
+  background: var(--card-bg);
+  color: var(--card-text);
 }
 
 .vehicle-card__image {
@@ -761,7 +805,7 @@ select:focus-visible {
   border: 0;
   border-radius: 2px;
   overflow: hidden;
-  background: #dce3dc;
+  background: var(--card-media-bg);
   text-align: left;
   cursor: pointer;
 }
@@ -806,7 +850,7 @@ select:focus-visible {
 
 .vehicle-card__eyebrow {
   margin: 0 0 3px;
-  color: var(--muted);
+  color: var(--card-muted);
   font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
@@ -827,7 +871,7 @@ select:focus-visible {
   min-height: 19px;
   padding: 0;
   margin: 13px 0 18px;
-  color: var(--muted);
+  color: var(--card-muted);
   font-size: 10px;
   list-style: none;
 }
@@ -861,7 +905,7 @@ select:focus-visible {
 }
 
 .vehicle-card__price span {
-  color: var(--muted);
+  color: var(--card-muted);
   font-size: 10px;
 }
 
@@ -913,8 +957,8 @@ select:focus-visible {
 }
 
 .process {
-  background: var(--forest);
-  color: var(--paper);
+  background: var(--process-bg);
+  color: var(--process-text);
 }
 
 .process__inner {
@@ -937,7 +981,7 @@ select:focus-visible {
 .process__intro > p:last-child {
   max-width: 340px;
   margin: 22px 0 0;
-  color: #c1d0c8;
+  color: var(--process-muted);
   font-size: 13px;
   line-height: 1.7;
 }
@@ -953,7 +997,7 @@ select:focus-visible {
 .step {
   min-height: 180px;
   padding-top: 17px;
-  border-top: 1px solid #597168;
+  border-top: 1px solid var(--process-border);
 }
 
 .step__number {
@@ -972,7 +1016,7 @@ select:focus-visible {
 
 .step p {
   margin: 0;
-  color: #c1d0c8;
+  color: var(--process-muted);
   font-size: 11px;
   line-height: 1.65;
 }
@@ -983,7 +1027,8 @@ select:focus-visible {
   justify-content: space-between;
   gap: 35px;
   padding: 75px max(6%, calc((100% - 1268px) / 2));
-  background: var(--coral);
+  background: var(--contact-bg);
+  color: var(--contact-text);
 }
 
 .contact-band h2 {
@@ -1005,8 +1050,8 @@ select:focus-visible {
 
 .site-footer {
   padding: 42px max(6%, calc((100% - 1268px) / 2)) 0;
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--footer-bg);
+  color: var(--footer-text);
 }
 
 .site-footer__main {
@@ -1018,12 +1063,12 @@ select:focus-visible {
 }
 
 .brand--footer {
-  color: var(--paper);
+  color: var(--footer-text);
 }
 
 .site-footer__main > p {
   margin: 1px 0 0;
-  color: #c1d0c8;
+  color: var(--footer-muted);
   font-size: 12px;
   line-height: 1.8;
 }
@@ -1095,7 +1140,7 @@ select:focus-visible {
 
 .site-footer__legal {
   padding: 22px 0 26px;
-  border-top: 1px solid #3b4742;
+  border-top: 1px solid var(--footer-border);
 }
 
 .site-footer__legal[hidden] {
@@ -1104,7 +1149,7 @@ select:focus-visible {
 
 .site-footer__legal-title {
   margin: 0;
-  color: #c1d0c8;
+  color: var(--footer-muted);
   font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
@@ -1118,7 +1163,7 @@ select:focus-visible {
 }
 
 .site-footer__legal-list dt {
-  color: #c1d0c8;
+  color: var(--footer-muted);
   font-size: 9px;
   text-transform: uppercase;
 }
@@ -1134,8 +1179,8 @@ select:focus-visible {
   display: flex;
   justify-content: space-between;
   padding: 14px 0 18px;
-  border-top: 1px solid #3b4742;
-  color: #c1d0c8;
+  border-top: 1px solid var(--footer-border);
+  color: var(--footer-muted);
   font-size: 10px;
 }
 

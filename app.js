@@ -608,6 +608,7 @@ async function init() {
 
   state.vehicles = vehicleData.vehicles;
   state.site = siteData;
+  window.applySiteTheme(state.site.theme);
   updateSiteDetails();
   buildBrandFilter();
   setHeroVehicle();

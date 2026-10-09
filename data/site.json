@@ -10,6 +10,16 @@
   "email": "nicolagal33@gmail.com",
   "facebook": "NM Cars",
   "instagram": "nm_cars",
+  "theme": {
+    "primary": "#202327",
+    "secondary": "#b4112a",
+    "accent": "#cc1f38",
+    "highlight": "#e7e9eb",
+    "body": "#f3f4f5",
+    "body_text": "#17191c",
+    "muted": "#646b72",
+    "border": "#cdd2d6"
+  },
   "legal": {
     "holder": "GALDERISI NICOLA",
     "legal_form": "Impresa individuale",

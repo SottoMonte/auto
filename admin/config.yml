@@ -71,7 +71,123 @@ collections:
                 widget: string
                 hint: Breve e senza spazi, per esempio fiat-500e-2024.
               - { label: Nome modello, name: title, widget: string }
-              - { label: Marca, name: brand, widget: string }
+              - label: Marca
+                name: brand
+                widget: select
+                options:
+                  - { label: Abarth, value: Abarth }
+                  - { label: Acura, value: Acura }
+                  - { label: Aion, value: Aion }
+                  - { label: Aixam, value: Aixam }
+                  - { label: Alfa Romeo, value: Alfa Romeo }
+                  - { label: Alpine, value: Alpine }
+                  - { label: Aston Martin, value: Aston Martin }
+                  - { label: Audi, value: Audi }
+                  - { label: Avatr, value: Avatr }
+                  - { label: BAIC, value: BAIC }
+                  - { label: Baojun, value: Baojun }
+                  - { label: Bentley, value: Bentley }
+                  - { label: BMW, value: BMW }
+                  - { label: Bugatti, value: Bugatti }
+                  - { label: Buick, value: Buick }
+                  - { label: BYD, value: BYD }
+                  - { label: Cadillac, value: Cadillac }
+                  - { label: Changan, value: Changan }
+                  - { label: Chery, value: Chery }
+                  - { label: Chevrolet, value: Chevrolet }
+                  - { label: Chrysler, value: Chrysler }
+                  - { label: Citroën, value: Citroën }
+                  - { label: Cupra, value: Cupra }
+                  - { label: Dacia, value: Dacia }
+                  - { label: Daihatsu, value: Daihatsu }
+                  - { label: Deepal, value: Deepal }
+                  - { label: Denza, value: Denza }
+                  - { label: Dodge, value: Dodge }
+                  - { label: Dongfeng, value: Dongfeng }
+                  - { label: DR Automobiles, value: DR Automobiles }
+                  - { label: DS Automobiles, value: DS Automobiles }
+                  - { label: Exeed, value: Exeed }
+                  - { label: FAW, value: FAW }
+                  - { label: Ferrari, value: Ferrari }
+                  - { label: Fiat, value: Fiat }
+                  - { label: Ford, value: Ford }
+                  - { label: GAC, value: GAC }
+                  - { label: Geely, value: Geely }
+                  - { label: Genesis, value: Genesis }
+                  - { label: GMC, value: GMC }
+                  - { label: GWM, value: GWM }
+                  - { label: Haval, value: Haval }
+                  - { label: Honda, value: Honda }
+                  - { label: Hongqi, value: Hongqi }
+                  - { label: Hyundai, value: Hyundai }
+                  - { label: Ineos, value: Ineos }
+                  - { label: Infiniti, value: Infiniti }
+                  - { label: Isuzu, value: Isuzu }
+                  - { label: JAC, value: JAC }
+                  - { label: Jaecoo, value: Jaecoo }
+                  - { label: Jaguar, value: Jaguar }
+                  - { label: Jeep, value: Jeep }
+                  - { label: Jetour, value: Jetour }
+                  - { label: Kia, value: Kia }
+                  - { label: KGM, value: KGM }
+                  - { label: Lada, value: Lada }
+                  - { label: Lamborghini, value: Lamborghini }
+                  - { label: Lancia, value: Lancia }
+                  - { label: Land Rover, value: Land Rover }
+                  - { label: Leapmotor, value: Leapmotor }
+                  - { label: Lexus, value: Lexus }
+                  - { label: Li Auto, value: Li Auto }
+                  - { label: Lincoln, value: Lincoln }
+                  - { label: Lotus, value: Lotus }
+                  - { label: Lucid, value: Lucid }
+                  - { label: Lynk & Co, value: Lynk & Co }
+                  - { label: Mahindra, value: Mahindra }
+                  - { label: Maruti Suzuki, value: Maruti Suzuki }
+                  - { label: Maserati, value: Maserati }
+                  - { label: Mazda, value: Mazda }
+                  - { label: McLaren, value: McLaren }
+                  - { label: Mercedes-Benz, value: Mercedes-Benz }
+                  - { label: MG, value: MG }
+                  - { label: MINI, value: MINI }
+                  - { label: Mitsubishi, value: Mitsubishi }
+                  - { label: NIO, value: NIO }
+                  - { label: Nissan, value: Nissan }
+                  - { label: Omoda, value: Omoda }
+                  - { label: ONVO, value: ONVO }
+                  - { label: Opel, value: Opel }
+                  - { label: ORA, value: ORA }
+                  - { label: Pagani, value: Pagani }
+                  - { label: Peugeot, value: Peugeot }
+                  - { label: Perodua, value: Perodua }
+                  - { label: Polestar, value: Polestar }
+                  - { label: Porsche, value: Porsche }
+                  - { label: Proton, value: Proton }
+                  - { label: Ram, value: Ram }
+                  - { label: Renault, value: Renault }
+                  - { label: Rimac, value: Rimac }
+                  - { label: Rivian, value: Rivian }
+                  - { label: Roewe, value: Roewe }
+                  - { label: Rolls-Royce, value: Rolls-Royce }
+                  - { label: SEAT, value: SEAT }
+                  - { label: Seres, value: Seres }
+                  - { label: Škoda, value: Škoda }
+                  - { label: smart, value: smart }
+                  - { label: Subaru, value: Subaru }
+                  - { label: Suzuki, value: Suzuki }
+                  - { label: Tank, value: Tank }
+                  - { label: Tata, value: Tata }
+                  - { label: Tesla, value: Tesla }
+                  - { label: Togg, value: Togg }
+                  - { label: Toyota, value: Toyota }
+                  - { label: Vauxhall, value: Vauxhall }
+                  - { label: VinFast, value: VinFast }
+                  - { label: Volkswagen, value: Volkswagen }
+                  - { label: Volvo, value: Volvo }
+                  - { label: Voyah, value: Voyah }
+                  - { label: Wuling, value: Wuling }
+                  - { label: Xiaomi, value: Xiaomi }
+                  - { label: XPeng, value: XPeng }
+                  - { label: Zeekr, value: Zeekr }
               - label: Formula
                 name: mode
                 widget: select

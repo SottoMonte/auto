@@ -12,6 +12,7 @@ python3 -m http.server 4173
 
 Apri `http://localhost:4173`. La pagina `/admin` va collegata a Decap Turbo prima di consentire modifiche online.
 
+
 ## Pubblicazione
 
 1. Crea un repository GitHub sul branch `main` e carica il progetto.

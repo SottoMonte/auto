@@ -1,15 +1,6 @@
 {
-  "brand": "STRADA",
-  "city": "Montoro (AV)",
-  "tagline": "Vendita chiara. Noleggio flessibile.",
-  "services": "Autolavaggio, vendita e noleggio auto",
-  "service_note": "Assistenza completa della vostra auto",
-  "address": "Via Biagio de Giovanni, 1, Torchiati di Montoro (AV)",
-  "phone": "+39 347 7095289",
-  "whatsapp": "393477095289",
-  "email": "nicolagal33@gmail.com",
   "facebook": "NM Cars",
-  "instagram": "nm_cars",
+  "brand": "NM Cars",
   "theme": {
     "primary": "#202327",
     "secondary": "#b4112a",
@@ -20,11 +11,20 @@
     "muted": "#646b72",
     "border": "#cdd2d6"
   },
+  "city": "Montoro (AV)",
+  "phone": "+39 347 7095289",
+  "tagline": "Vendita chiara. Noleggio flessibile.",
+  "whatsapp": "393477095289",
+  "instagram": "nm_cars",
+  "address": "Via Biagio de Giovanni, 1, Torchiati di Montoro (AV)",
   "legal": {
     "holder": "GALDERISI NICOLA",
     "legal_form": "Impresa individuale",
     "registered_office": "Via Curti 1, CAP 83025, frazione Torchiati, Montoro (AV)",
     "vat_number": "06410160656",
     "rea": "AV - 313427"
-  }
+  },
+  "service_note": "Assistenza completa della vostra auto",
+  "email": "nicolagal33@gmail.com",
+  "services": "Autolavaggio, vendita e noleggio auto"
 }

@@ -97,6 +97,9 @@ function updateSharedContent() {
   const brand = String(pageState.site.brand || "STRADA").trim();
   const city = String(pageState.site.city || "La tua città").trim();
   const email = validEmail(pageState.site.email);
+  const phone = String(pageState.site.phone || "").trim();
+  const whatsappNumber = String(pageState.site.whatsapp || "").replace(/\D/g, "");
+  const phoneLabel = phone || `+${whatsappNumber}`;
   const whatsapp = whatsappUrl(`Buongiorno, vorrei ricevere informazioni da ${brand}.`);
 
   document.querySelectorAll("[data-brand]").forEach((element) => {
@@ -111,13 +114,40 @@ function updateSharedContent() {
   toplineEmail.textContent = email;
   const toplineWhatsapp = byId("topline-whatsapp");
   setLink(toplineWhatsapp, whatsapp);
-  byId("topline-whatsapp-number").textContent = String(pageState.site.whatsapp || "").trim();
+  byId("topline-whatsapp-number").textContent = phoneLabel;
+  if (whatsapp) toplineWhatsapp.setAttribute("aria-label", `WhatsApp ${phoneLabel}`);
   byId("topline-contacts").hidden = !email && !whatsapp;
+
+  const address = String(pageState.site.address || "").trim();
+  const footerAddress = byId("contact-address");
+  footerAddress.hidden = !address;
+  footerAddress.textContent = address;
 
   const footerEmail = byId("contact-email");
   setLink(footerEmail, email ? `mailto:${email}` : "");
   footerEmail.textContent = email;
-  const phone = String(pageState.site.phone || "").trim();
+
+  const facebook = String(pageState.site.facebook || "").trim();
+  const footerFacebook = byId("contact-facebook");
+  footerFacebook.hidden = !facebook;
+  footerFacebook.textContent = facebook;
+
+  const instagram = String(pageState.site.instagram || "").trim();
+  const footerInstagram = byId("contact-instagram");
+  footerInstagram.hidden = !instagram;
+  footerInstagram.textContent = instagram;
+
+  const footerBusinessLines = [pageState.site.services, pageState.site.service_note]
+    .map((line) => String(line || "").trim())
+    .filter(Boolean);
+  const footerBusinessCopy = byId("footer-business-copy");
+  footerBusinessCopy.replaceChildren();
+  footerBusinessLines.forEach((line, index) => {
+    if (index > 0) footerBusinessCopy.append(document.createElement("br"));
+    footerBusinessCopy.append(document.createTextNode(line));
+  });
+  footerBusinessCopy.hidden = footerBusinessLines.length === 0;
+
   const footerPhone = byId("contact-phone");
   setLink(footerPhone, phone ? `tel:${phone.replace(/[^\d+]/g, "")}` : "");
   footerPhone.textContent = phone;
@@ -177,8 +207,8 @@ function addSpec(label, value) {
   return row;
 }
 
-function vehicleSpecs(vehicle) {
-  return [
+function vehicleSpecs(vehicle, includeBodySeats = true) {
+  const specs = [
     addSpec("Formula", vehicle.mode === "noleggio" ? "Noleggio" : "Vendita"),
     addSpec("Anno", vehicle.year),
     addSpec("Chilometri", vehicle.kilometers !== undefined && vehicle.kilometers !== ""
@@ -186,8 +216,116 @@ function vehicleSpecs(vehicle) {
       : ""),
     addSpec("Alimentazione", vehicle.fuel),
     addSpec("Cambio", vehicle.transmission),
-    addSpec("Posti", vehicle.seats),
-  ].filter(Boolean);
+    ];
+    if (includeBodySeats) {
+      specs.push(addSpec("Posti", vehicle.seats));
+    }
+    return specs.filter(Boolean);
+  }
+
+  function technicalFieldRows(source, fields) {
+    return fields.map(([key, label, unit]) => {
+      const value = source?.[key];
+      if (value === undefined || value === null || value === "") return null;
+      const formatted = typeof value === "number" && Number.isFinite(value)
+        ? new Intl.NumberFormat("it-IT", { maximumFractionDigits: 2 }).format(value)
+        : String(value).trim();
+      return addSpec(label, unit ? `${formatted} ${unit}` : formatted);
+    }).filter(Boolean);
+  }
+
+  function technicalGroup(title, source, fields) {
+    const rows = technicalFieldRows(source, fields);
+    return rows.length ? { title, rows } : null;
+  }
+
+  function renderTechnicalData(vehicle) {
+    const technical = vehicle.technical || {};
+    const consumption = technical.consumption || {};
+    const fuel = normalizeText(vehicle.fuel);
+    const isHybrid = /ibrid|hybrid/.test(fuel);
+    const isElectric = /elettric|electric/.test(fuel);
+    const showCombustion = !isElectric || isHybrid;
+    const showElectric = isElectric || isHybrid;
+    const groups = [];
+
+    if (showCombustion) {
+      groups.push(technicalGroup("Motore termico", technical.combustion, [
+        ["displacement_cc", "Cilindrata", "cc"],
+        ["cylinders", "Cilindri", ""],
+        ["gears", "Marce", ""],
+        ["max_power_kw", "Potenza massima (kW)", ""],
+        ["max_power_cv", "Potenza massima (CV)", ""],
+        ["max_power_rpm", "Regime potenza massima", "giri/min"],
+        ["max_torque_nm", "Coppia massima", "Nm"],
+        ["max_torque_rpm", "Regime coppia massima", "giri/min"],
+        ["traction", "Trazione", ""],
+        ["fuel_tank_l", "Serbatoio", "L"],
+      ]));
+    }
+
+    if (showElectric) {
+      groups.push(technicalGroup("Motore elettrico e batteria", technical.electric, [
+        ["power_kw", "Potenza motore (kW)", ""],
+        ["power_cv", "Potenza motore (CV)", ""],
+        ["torque_nm", "Coppia motore", "Nm"],
+        ["battery_capacity_kwh", "Batteria", "kWh"],
+        ["range_km", "Autonomia omologata", "km"],
+        ["charging_power_kw", "Potenza di ricarica", "kW"],
+      ]));
+    }
+
+    const body = technical.body || {};
+    groups.push(technicalGroup("Carrozzeria", body, [
+      ["height_mm", "Altezza", "mm"],
+      ["width_mm", "Larghezza", "mm"],
+      ["length_mm", "Lunghezza", "mm"],
+      ["doors", "Porte", ""],
+      ["type", "Carrozzeria", ""],
+      ["max_mass_kg", "Massa massima", "kg"],
+      ["trunk_min_l", "Bagagliaio", "L"],
+      ["trunk_max_l", "Bagagliaio massimo", "L"],
+      ["seats", "Posti", ""],
+      ["color", "Colore", ""],
+    ]));
+
+    groups.push(technicalGroup("Prestazioni", technical.performance, [
+      ["top_speed_kmh", "Velocità massima", "km/h"],
+      ["acceleration_0_100_s", "0-100 km/h", "s"],
+    ]));
+
+    if (showCombustion) {
+      groups.push(technicalGroup(isHybrid ? "Consumi carburante" : "Consumi ed emissioni", consumption, [
+        ["urban_l_100km", "Urbano", "L/100 km"],
+        ["extraurban_l_100km", "Extraurbano", "L/100 km"],
+        ["combined_l_100km", "Misto", "L/100 km"],
+        ["emissions_standard", "Omologazione", ""],
+      ]));
+    }
+
+    if (showElectric) {
+      groups.push(technicalGroup(isHybrid ? "Consumi elettrici" : "Consumi e autonomia", consumption, [
+        ["urban_kwh_100km", "Urbano", "kWh/100 km"],
+        ["extraurban_kwh_100km", "Extraurbano", "kWh/100 km"],
+        ["combined_kwh_100km", "Misto", "kWh/100 km"],
+      ]));
+    }
+
+    const visibleGroups = groups.filter(Boolean);
+    const container = byId("detail-technical");
+    const grid = byId("detail-technical-grid");
+    grid.replaceChildren(...visibleGroups.map(({ title, rows }) => {
+      const section = document.createElement("section");
+      const heading = document.createElement("h3");
+      const specs = document.createElement("dl");
+      section.className = "detail-technical__group";
+      heading.textContent = title;
+      specs.className = "detail-technical__specs";
+      specs.replaceChildren(...rows);
+      section.append(heading, specs);
+      return section;
+    }));
+    container.hidden = visibleGroups.length === 0;
 }
 
 function renderCatalogCard(vehicle) {
@@ -476,7 +614,12 @@ function initVehicleDetail() {
   byId("detail-description").textContent = String(vehicle.description || "").trim();
   document.title = `${title} — ${String(pageState.site.brand || "STRADA")}`;
   document.querySelector('meta[name="description"]').content = String(vehicle.description || `Dettagli, prezzo e disponibilità di ${title}.`);
-  byId("detail-specs").replaceChildren(...vehicleSpecs(vehicle));
+  const bodySeats = vehicle.technical?.body?.seats;
+  byId("detail-specs").replaceChildren(...vehicleSpecs(
+    vehicle,
+    bodySeats === undefined || bodySeats === null || bodySeats === "",
+  ));
+  renderTechnicalData(vehicle);
 
   const email = validEmail(pageState.site.email);
   setLink(byId("detail-email"), email
@@ -520,7 +663,7 @@ function initVehicleDetail() {
 async function initializeVehiclePages() {
   const [vehiclesResponse, siteResponse] = await Promise.all([
     fetch("data/vehicles.json"),
-    fetch("data/site.json"),
+    fetch("data/site.json", { cache: "no-store" }),
   ]);
   if (!vehiclesResponse.ok || !siteResponse.ok) {
     throw new Error("Impossibile caricare i dati del parco auto.");

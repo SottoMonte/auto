@@ -15,8 +15,8 @@
       href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css" />
-    <script src="app.js" defer></script>
+    <link rel="stylesheet" href="styles.css?v=8" />
+    <script src="app.js?v=2" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Salta al contenuto</a>
@@ -38,8 +38,8 @@
 
     <header class="site-header">
       <div class="site-header__inner">
-        <a class="brand" href="#inizio" aria-label="Torna all'inizio">
-          <span data-brand>STRADA</span><span class="brand__dot" aria-hidden="true">.</span>
+        <a class="brand" href="#inizio" aria-label="NM Cars, torna all'inizio">
+          <img class="brand__logo" src="assets/logo_NM_Cars_trasparente.png" alt="" width="88" height="90" aria-hidden="true" />
         </a>
         <button
           class="menu-toggle"
@@ -233,13 +233,16 @@
 
     <footer class="site-footer">
       <div class="site-footer__main">
-        <a class="brand brand--footer" href="#inizio" aria-label="Torna all'inizio">
-          <span data-brand>STRADA</span><span class="brand__dot" aria-hidden="true">.</span>
+        <a class="brand brand--footer" href="#inizio" aria-label="NM Cars, torna all'inizio">
+          <img class="brand__logo" src="assets/logo_NM_Cars_trasparente.png" alt="" width="88" height="90" aria-hidden="true" />
         </a>
-        <p>Noleggio e vendita auto.<br /><span data-city>La tua città</span></p>
+        <p id="footer-business-copy"></p>
         <div class="site-footer__contacts">
-          <a id="contact-email" href="mailto:info@example.com">info@example.com</a>
-          <a id="contact-phone" href="tel:"></a>
+          <p class="site-footer__contact site-footer__contact--address" id="contact-address" hidden></p>
+          <a class="site-footer__contact site-footer__contact--email" id="contact-email" href="mailto:info@example.com" hidden>info@example.com</a>
+          <p class="site-footer__contact site-footer__contact--facebook" id="contact-facebook" hidden></p>
+          <p class="site-footer__contact site-footer__contact--instagram" id="contact-instagram" hidden></p>
+          <a class="site-footer__contact site-footer__contact--phone" id="contact-phone" href="tel:" hidden></a>
         </div>
       </div>
       <section class="site-footer__legal" id="legal-details" aria-labelledby="legal-details-title" hidden>

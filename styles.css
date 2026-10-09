@@ -3,6 +3,8 @@
   --paper: #f2f5ee;
   --ink: #18211e;
   --forest: #173a30;
+  --header-bg: var(--ink);
+  --topline-bg: #2f7a4f;
   --muted: #6b7771;
   --line: #cbd4cc;
   --lime: #d9ff5c;
@@ -90,7 +92,7 @@ select:focus-visible {
 }
 
 .topline {
-  background: var(--forest);
+  background: var(--topline-bg);
   color: var(--paper);
   font-size: 11px;
 }
@@ -131,9 +133,37 @@ select:focus-visible {
 }
 
 .topline__contacts a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   color: inherit;
   overflow-wrap: anywhere;
   text-decoration: none;
+}
+
+.topline__contacts a::before {
+  display: block;
+  flex: 0 0 14px;
+  width: 14px;
+  height: 14px;
+  background-color: currentColor;
+  content: "";
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+}
+
+#topline-email::before {
+  -webkit-mask-image: url("assets/email-icon.svg");
+  mask-image: url("assets/email-icon.svg");
+}
+
+.topline__whatsapp::before {
+  -webkit-mask-image: url("assets/whatsapp-icon.svg");
+  mask-image: url("assets/whatsapp-icon.svg");
 }
 
 .topline__contacts a:hover {
@@ -161,8 +191,9 @@ select:focus-visible {
 .site-header {
   position: relative;
   z-index: 5;
-  background: var(--paper);
-  border-bottom: 1px solid var(--line);
+  background: var(--header-bg);
+  color: var(--paper);
+  border-bottom: 1px solid rgb(255 255 255 / 16%);
 }
 
 .site-header__inner {
@@ -178,17 +209,30 @@ select:focus-visible {
 
 .brand {
   display: inline-flex;
-  align-items: baseline;
+  align-items: center;
   color: var(--ink);
-  font-family: var(--display);
-  font-size: 34px;
-  font-weight: 700;
-  line-height: 1;
   text-decoration: none;
 }
 
-.brand__dot {
-  color: var(--coral);
+.brand__logo {
+  display: block;
+  flex: 0 0 auto;
+  width: 88px;
+  height: 90px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 1px var(--ink));
+}
+
+.site-header .brand__logo {
+  margin-block: 8px;
+}
+
+.site-header .brand {
+  color: var(--paper);
+}
+
+.brand--footer .brand__logo {
+  filter: none;
 }
 
 .primary-nav {
@@ -215,11 +259,12 @@ select:focus-visible {
   gap: 14px;
   min-height: 42px;
   padding: 0 16px;
-  border: 1px solid var(--ink);
+  border: 1px solid var(--paper);
 }
 
 .primary-nav__contact:hover {
   background: var(--lime);
+  color: var(--ink);
 }
 
 .menu-toggle {
@@ -227,7 +272,7 @@ select:focus-visible {
   width: 44px;
   height: 44px;
   padding: 12px 9px;
-  border: 1px solid var(--line);
+  border: 1px solid rgb(255 255 255 / 45%);
   background: transparent;
   cursor: pointer;
 }
@@ -236,7 +281,7 @@ select:focus-visible {
   display: block;
   height: 2px;
   margin: 4px 0;
-  background: var(--ink);
+  background: var(--paper);
   transition: transform 180ms ease;
 }
 
@@ -702,7 +747,9 @@ select:focus-visible {
 }
 
 .vehicle-card {
+  display: flex;
   min-width: 0;
+  flex-direction: column;
 }
 
 .vehicle-card__image {
@@ -751,6 +798,9 @@ select:focus-visible {
 }
 
 .vehicle-card__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
   padding-top: 17px;
 }
 
@@ -773,7 +823,7 @@ select:focus-visible {
 .vehicle-card__specs {
   display: flex;
   flex-wrap: wrap;
-  gap: 0;
+  gap: 5px 0;
   min-height: 19px;
   padding: 0;
   margin: 13px 0 18px;
@@ -783,7 +833,7 @@ select:focus-visible {
 }
 
 .vehicle-card__specs li + li::before {
-  padding: 0 8px;
+  margin: 0 8px;
   color: var(--coral);
   content: "/";
 }
@@ -793,6 +843,7 @@ select:focus-visible {
   align-items: flex-end;
   justify-content: space-between;
   gap: 12px;
+  margin-top: auto;
   padding-top: 14px;
   border-top: 1px solid var(--line);
 }
@@ -980,12 +1031,66 @@ select:focus-visible {
 .site-footer__contacts {
   display: grid;
   justify-items: end;
-  gap: 6px;
+  gap: 9px;
   font-size: 12px;
 }
 
-.site-footer__contacts a {
+.site-footer__contact {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 9px;
+  max-width: min(100%, 320px);
+  min-width: 0;
+  margin: 0;
+  color: inherit;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
   text-decoration: none;
+}
+
+.site-footer__contact::before {
+  display: block;
+  flex: 0 0 16px;
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  background-color: currentColor;
+  content: "";
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+}
+
+.site-footer__contact[hidden] {
+  display: none;
+}
+
+#contact-address::before {
+  -webkit-mask-image: url("assets/location-icon.svg");
+  mask-image: url("assets/location-icon.svg");
+}
+
+#contact-email::before {
+  -webkit-mask-image: url("assets/email-icon.svg");
+  mask-image: url("assets/email-icon.svg");
+}
+
+#contact-facebook::before {
+  -webkit-mask-image: url("assets/facebook-icon.svg");
+  mask-image: url("assets/facebook-icon.svg");
+}
+
+#contact-instagram::before {
+  -webkit-mask-image: url("assets/instagram-icon.svg");
+  mask-image: url("assets/instagram-icon.svg");
+}
+
+#contact-phone::before {
+  -webkit-mask-image: url("assets/phone-icon.svg");
+  mask-image: url("assets/phone-icon.svg");
 }
 
 .site-footer__legal {
@@ -1624,6 +1729,72 @@ select:focus-visible {
   overflow-wrap: anywhere;
 }
 
+.detail-technical {
+  padding-top: 30px;
+  margin-top: 38px;
+  border-top: 1px solid var(--line);
+}
+
+.detail-technical[hidden] {
+  display: none;
+}
+
+.detail-technical > h2 {
+  margin: 0 0 18px;
+  font-family: var(--display);
+  font-size: 38px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.detail-technical__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+
+.detail-technical__group {
+  min-width: 0;
+  padding: 20px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.detail-technical__group h3 {
+  margin: 0 0 14px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.detail-technical__specs {
+  display: grid;
+  margin: 0;
+}
+
+.detail-technical__specs > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 12px;
+  padding: 9px 0;
+  border-top: 1px solid rgb(203 212 204 / 60%);
+}
+
+.detail-technical__specs dt {
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.detail-technical__specs dd {
+  margin: 0;
+  font-size: 10px;
+  font-weight: 700;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
 .detail-contacts {
   display: flex;
   flex-wrap: wrap;
@@ -1741,8 +1912,8 @@ select:focus-visible {
     align-items: stretch;
     gap: 0;
     padding: 8px 22px 18px;
-    border-bottom: 1px solid var(--line);
-    background: var(--paper);
+    border-bottom: 1px solid rgb(255 255 255 / 16%);
+    background: var(--header-bg);
   }
 
   .primary-nav.is-open {
@@ -1752,7 +1923,7 @@ select:focus-visible {
 
   .primary-nav > a:not(.primary-nav__contact) {
     padding: 13px 0;
-    border-bottom: 1px solid var(--line);
+    border-bottom: 1px solid rgb(255 255 255 / 16%);
   }
 
   .primary-nav__contact {
@@ -1946,6 +2117,11 @@ select:focus-visible {
     justify-items: start;
   }
 
+  .site-footer__contact {
+    max-width: 100%;
+    text-align: left;
+  }
+
   .vehicle-dialog__layout {
     grid-template-columns: 1fr;
   }
@@ -2056,8 +2232,8 @@ select:focus-visible {
   }
 
   .vehicle-detail-layout {
-    grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.95fr);
-    gap: 30px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
   }
 
   .detail-summary h1 {
@@ -2065,7 +2241,9 @@ select:focus-visible {
   }
 
   .detail-gallery__stage {
-    min-height: 340px;
+    aspect-ratio: 1.35 / 1;
+    min-height: 0;
+    max-height: 620px;
   }
 }
 
@@ -2198,6 +2376,14 @@ select:focus-visible {
 
   .detail-specs {
     gap: 0 12px;
+  }
+
+  .detail-technical > h2 {
+    font-size: 32px;
+  }
+
+  .detail-technical__group {
+    padding: 16px;
   }
 
   .detail-contacts .button {

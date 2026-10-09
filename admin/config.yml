@@ -20,6 +20,9 @@ collections:
           - { label: Nome attività, name: brand, widget: string }
           - { label: Città o zona, name: city, widget: string }
           - { label: Frase introduttiva, name: tagline, widget: string }
+          - { label: Attività offerte, name: services, widget: string, required: false }
+          - { label: Descrizione dei servizi, name: service_note, widget: string, required: false }
+          - { label: Indirizzo pubblico, name: address, widget: string, required: false }
           - { label: Telefono, name: phone, widget: string, required: false }
           - label: Numero WhatsApp
             name: whatsapp
@@ -27,6 +30,8 @@ collections:
             required: false
             hint: Inserisci il numero completo con prefisso internazionale (es. 393331234567), solo cifre.
           - { label: Email di contatto, name: email, widget: string, required: false }
+          - { label: Nome pagina Facebook, name: facebook, widget: string, required: false }
+          - { label: Profilo Instagram, name: instagram, widget: string, required: false }
           - label: Dati dell'impresa
             name: legal
             widget: object
@@ -86,6 +91,72 @@ collections:
                   - Manuale
                   - Automatica
               - { label: Posti, name: seats, widget: number, value_type: int, min: 1, max: 9, required: false }
+              - label: Dati tecnici
+                name: technical
+                widget: object
+                required: false
+                hint: Compila solo i valori presenti nella scheda del veicolo. Per le ibride puoi compilare sia il motore termico sia quello elettrico.
+                fields:
+                  - label: Motore termico
+                    name: combustion
+                    widget: object
+                    required: false
+                    fields:
+                      - { label: Cilindrata (cc), name: displacement_cc, widget: number, value_type: int, min: 0, required: false }
+                      - { label: Cilindri, name: cylinders, widget: number, value_type: int, min: 0, required: false }
+                      - { label: Marce, name: gears, widget: number, value_type: int, min: 0, required: false }
+                      - { label: Potenza massima (kW), name: max_power_kw, widget: number, value_type: int, min: 0, required: false }
+                      - { label: Potenza massima (CV), name: max_power_cv, widget: number, value_type: int, min: 0, required: false }
+                      - { label: Regime di potenza massima (giri/min), name: max_power_rpm, widget: number, value_type: int, min: 0, required: false }
+                      - { label: Coppia massima (Nm), name: max_torque_nm, widget: number, value_type: int, min: 0, required: false }
+                      - { label: Regime di coppia massima (giri/min), name: max_torque_rpm, widget: number, value_type: int, min: 0, required: false }
+                      - { label: Trazione, name: traction, widget: string, required: false }
+                      - { label: Capacità serbatoio (L), name: fuel_tank_l, widget: number, value_type: int, min: 0, required: false }
+                  - label: Motore elettrico e batteria
+                    name: electric
+                    widget: object
+                    required: false
+                    fields:
+                      - { label: Potenza motore (kW), name: power_kw, widget: number, value_type: int, min: 0, required: false }
+                      - { label: Potenza motore (CV), name: power_cv, widget: number, value_type: int, min: 0, required: false }
+                      - { label: Coppia motore (Nm), name: torque_nm, widget: number, value_type: int, min: 0, required: false }
+                      - { label: Capacità batteria (kWh), name: battery_capacity_kwh, widget: number, value_type: float, min: 0, required: false }
+                      - { label: Autonomia omologata (km), name: range_km, widget: number, value_type: int, min: 0, required: false }
+                      - { label: Potenza di ricarica (kW), name: charging_power_kw, widget: number, value_type: float, min: 0, required: false }
+                  - label: Carrozzeria
+                    name: body
+                    widget: object
+                    required: false
+                    fields:
+                      - { label: Altezza (mm), name: height_mm, widget: number, value_type: int, min: 0, required: false }
+                      - { label: Larghezza (mm), name: width_mm, widget: number, value_type: int, min: 0, required: false }
+                      - { label: Lunghezza (mm), name: length_mm, widget: number, value_type: int, min: 0, required: false }
+                      - { label: Porte, name: doors, widget: number, value_type: int, min: 0, required: false }
+                      - { label: Tipo carrozzeria, name: type, widget: string, required: false }
+                      - { label: Massa massima (kg), name: max_mass_kg, widget: number, value_type: int, min: 0, required: false }
+                      - { label: Bagagliaio minimo (L), name: trunk_min_l, widget: number, value_type: int, min: 0, required: false }
+                      - { label: Bagagliaio massimo (L), name: trunk_max_l, widget: number, value_type: int, min: 0, required: false }
+                      - { label: Posti, name: seats, widget: number, value_type: int, min: 1, max: 9, required: false }
+                      - { label: Colore, name: color, widget: string, required: false }
+                  - label: Prestazioni
+                    name: performance
+                    widget: object
+                    required: false
+                    fields:
+                      - { label: Velocità massima (km/h), name: top_speed_kmh, widget: number, value_type: int, min: 0, required: false }
+                      - { label: Accelerazione 0-100 km/h (s), name: acceleration_0_100_s, widget: number, value_type: float, min: 0, required: false }
+                  - label: Consumi ed emissioni
+                    name: consumption
+                    widget: object
+                    required: false
+                    fields:
+                      - { label: Consumo urbano (L/100 km), name: urban_l_100km, widget: number, value_type: float, min: 0, required: false }
+                      - { label: Consumo extraurbano (L/100 km), name: extraurban_l_100km, widget: number, value_type: float, min: 0, required: false }
+                      - { label: Consumo misto (L/100 km), name: combined_l_100km, widget: number, value_type: float, min: 0, required: false }
+                      - { label: Consumo urbano (kWh/100 km), name: urban_kwh_100km, widget: number, value_type: float, min: 0, required: false }
+                      - { label: Consumo extraurbano (kWh/100 km), name: extraurban_kwh_100km, widget: number, value_type: float, min: 0, required: false }
+                      - { label: Consumo misto (kWh/100 km), name: combined_kwh_100km, widget: number, value_type: float, min: 0, required: false }
+                      - { label: Classe emissioni, name: emissions_standard, widget: string, required: false }
               - { label: Foto, name: image, widget: image, required: false }
               - label: Foto aggiuntive
                 name: images

@@ -23,8 +23,12 @@ const elements = {
   toplineEmail: document.querySelector("#topline-email"),
   toplineWhatsapp: document.querySelector("#topline-whatsapp"),
   toplineWhatsappNumber: document.querySelector("#topline-whatsapp-number"),
+  contactAddress: document.querySelector("#contact-address"),
   contactEmail: document.querySelector("#contact-email"),
+  contactFacebook: document.querySelector("#contact-facebook"),
+  contactInstagram: document.querySelector("#contact-instagram"),
   contactPhone: document.querySelector("#contact-phone"),
+  footerBusinessCopy: document.querySelector("#footer-business-copy"),
   contactPrimary: document.querySelector("#contact-primary"),
   contactPrimaryLabel: document.querySelector("#contact-primary-label"),
   contactWhatsapp: document.querySelector("#contact-whatsapp"),
@@ -153,6 +157,7 @@ function updateSiteDetails() {
   const phone = String(state.site.phone || "").trim();
   const whatsapp = whatsappUrl();
   const whatsappNumber = String(state.site.whatsapp ?? "").replace(/\D/g, "");
+  const phoneLabel = phone || `+${whatsappNumber}`;
 
   document.querySelectorAll("[data-brand]").forEach((element) => {
     element.textContent = brand;
@@ -169,8 +174,8 @@ function updateSiteDetails() {
   elements.toplineWhatsapp.hidden = !whatsapp;
   if (whatsapp) {
     elements.toplineWhatsapp.href = whatsapp;
-    elements.toplineWhatsappNumber.textContent = `+${whatsappNumber}`;
-    elements.toplineWhatsapp.setAttribute("aria-label", `WhatsApp ${whatsappNumber}`);
+    elements.toplineWhatsappNumber.textContent = phoneLabel;
+    elements.toplineWhatsapp.setAttribute("aria-label", `WhatsApp ${phoneLabel}`);
   } else {
     elements.toplineWhatsapp.removeAttribute("href");
     elements.toplineWhatsappNumber.textContent = "";
@@ -202,6 +207,28 @@ function updateSiteDetails() {
     elements.contactPhone.href = `tel:${phone.replace(/[^\d+]/g, "")}`;
     elements.contactPhone.textContent = phone;
   }
+
+  const address = String(state.site.address || "").trim();
+  elements.contactAddress.hidden = !address;
+  elements.contactAddress.textContent = address;
+
+  const facebook = String(state.site.facebook || "").trim();
+  elements.contactFacebook.hidden = !facebook;
+  elements.contactFacebook.textContent = facebook;
+
+  const instagram = String(state.site.instagram || "").trim();
+  elements.contactInstagram.hidden = !instagram;
+  elements.contactInstagram.textContent = instagram;
+
+  const footerBusinessLines = [state.site.services, state.site.service_note]
+    .map((line) => String(line || "").trim())
+    .filter(Boolean);
+  elements.footerBusinessCopy.replaceChildren();
+  footerBusinessLines.forEach((line, index) => {
+    if (index > 0) elements.footerBusinessCopy.append(document.createElement("br"));
+    elements.footerBusinessCopy.append(document.createTextNode(line));
+  });
+  elements.footerBusinessCopy.hidden = footerBusinessLines.length === 0;
 
   const legal = state.site.legal || {};
   const legalFields = [
@@ -565,7 +592,7 @@ function bindEvents() {
 async function init() {
   const [vehiclesResponse, siteResponse] = await Promise.all([
     fetch("data/vehicles.json"),
-    fetch("data/site.json"),
+    fetch("data/site.json", { cache: "no-store" }),
   ]);
   if (!vehiclesResponse.ok || !siteResponse.ok) {
     throw new Error("Impossibile caricare i contenuti del sito.");

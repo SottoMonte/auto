@@ -26,7 +26,8 @@ Il CMS usa il backend GitHub di Decap Turbo, distribuito al momento come release
 
 - `data/vehicles.json`: elenco auto, prezzi e disponibilità. Il prezzo è totale per la vendita e giornaliero per il noleggio.
 - `parco-auto.html`: filtri per marca, modello, formula, alimentazione, cambio e prezzo ricavati dalle auto disponibili; `auto.html?id=<id>` apre la scheda completa. Ogni auto può avere una foto principale e più foto aggiuntive.
-- `data/site.json`: nome attività, zona e recapiti. I valori iniziali sono dimostrativi: sostituisci nome, zona ed email prima della pubblicazione. Il telefono e WhatsApp sono facoltativi.
+- In Decap, `Dati tecnici` raccoglie misure, prestazioni e dati opzionali del motore. Le auto elettriche mostrano batteria e consumi in kWh; quelle termiche mostrano cilindrata, serbatoio e consumi in L/100 km; le ibride possono mostrare entrambi i gruppi. Inserisci soltanto valori verificati e con le unità indicate.
+- `data/site.json`: nome attività, zona, servizi, indirizzo pubblico, recapiti e nomi dei profili social; la sede legale resta nei dati aziendali. Verifica tutte le informazioni prima della pubblicazione.
 - Le foto iniziali sono immagini dimostrative da Unsplash. Caricando le foto definitive da Decap, i file vengono salvati in `uploads/` nel repository.
 
 Il sito raccoglie richieste tramite email o WhatsApp, ma non effettua prenotazioni, pagamenti o verifiche automatiche di disponibilità.

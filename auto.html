@@ -9,8 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css" />
-    <script src="vehicle-pages.js" defer></script>
+    <link rel="stylesheet" href="styles.css?v=8" />
+    <script src="vehicle-pages.js?v=2" defer></script>
   </head>
   <body data-page="vehicle">
     <a class="skip-link" href="#main">Salta al contenuto</a>
@@ -32,7 +32,7 @@
 
     <header class="site-header">
       <div class="site-header__inner">
-        <a class="brand" href="index.html#inizio" aria-label="STRADA, pagina iniziale"><span data-brand>STRADA</span><span class="brand__dot" aria-hidden="true">.</span></a>
+        <a class="brand" href="index.html#inizio" aria-label="NM Cars, pagina iniziale"><img class="brand__logo" src="assets/logo_NM_Cars_trasparente.png" alt="" width="88" height="90" aria-hidden="true" /></a>
         <button class="menu-toggle" type="button" aria-label="Apri il menu" aria-controls="vehicle-navigation" aria-expanded="false">
           <span></span><span></span>
         </button>
@@ -76,6 +76,10 @@
           <a class="text-link detail-back-link" href="parco-auto.html">Torna al parco auto <span aria-hidden="true">↗</span></a>
         </section>
       </div>
+      <section class="detail-technical" id="detail-technical" aria-labelledby="detail-technical-title" hidden>
+        <h2 id="detail-technical-title">Dati tecnici</h2>
+        <div class="detail-technical__grid" id="detail-technical-grid"></div>
+      </section>
       <section class="vehicle-not-found" id="vehicle-not-found" hidden>
         <p class="eyebrow"><span class="eyebrow__index">STRADA</span> PARCO AUTO</p>
         <h1>Questa auto non è disponibile.</h1>
@@ -85,11 +89,14 @@
 
     <footer class="site-footer" id="contatti">
       <div class="site-footer__main">
-        <a class="brand brand--footer" href="index.html#inizio" aria-label="Torna all'inizio"><span data-brand>STRADA</span><span class="brand__dot" aria-hidden="true">.</span></a>
-        <p>Noleggio e vendita auto.<br /><span data-city>La tua città</span></p>
+        <a class="brand brand--footer" href="index.html#inizio" aria-label="NM Cars, torna all'inizio"><img class="brand__logo" src="assets/logo_NM_Cars_trasparente.png" alt="" width="88" height="90" aria-hidden="true" /></a>
+        <p id="footer-business-copy"></p>
         <div class="site-footer__contacts">
-          <a id="contact-email" href="mailto:info@example.com">info@example.com</a>
-          <a id="contact-phone" href="tel:" hidden></a>
+          <p class="site-footer__contact site-footer__contact--address" id="contact-address" hidden></p>
+          <a class="site-footer__contact site-footer__contact--email" id="contact-email" href="mailto:info@example.com" hidden>info@example.com</a>
+          <p class="site-footer__contact site-footer__contact--facebook" id="contact-facebook" hidden></p>
+          <p class="site-footer__contact site-footer__contact--instagram" id="contact-instagram" hidden></p>
+          <a class="site-footer__contact site-footer__contact--phone" id="contact-phone" href="tel:" hidden></a>
         </div>
       </div>
       <section class="site-footer__legal" id="legal-details" aria-labelledby="legal-details-title" hidden>

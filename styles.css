@@ -838,7 +838,8 @@ select:focus-visible {
 
 .vehicle-card__featured {
   right: 12px;
-  background: var(--lime);
+  background: var(--coral);
+  color: var(--paper);
 }
 
 .vehicle-card__body {
